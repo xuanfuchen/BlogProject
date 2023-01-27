@@ -29,10 +29,47 @@
     padding-bottom: 5em !important;
 }
 
+/* ------ margin ------ */
+.m-margin-tb-tiny{
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+
 /* ------ display ------ */
 .m-inline-block{
     display: inline-block;
 }
+
+.m-top-right{
+    position: absolute;
+    top:0;
+    right: 0;
+}
+
+.m-mobile-show {
+    display: none !important;
+ }
+
+ @media screen and (max-width: 768px){
+     .m-mobile-hide {
+         display: none !important;
+     }
+     .m-mobile-show {
+         display: block !important;
+     }
+     .m-padded-lr-responsive {
+         padding-left: 0 !important;
+         padding-right: 0 !important;
+     }
+     .m-mobile-lr-clear {
+         padding-left: 0 !important;
+         padding-right: 0 !important;
+     }
+     .m-mobile-wide {
+         width: 100% !important;
+     }
+ }
 
 /* ------ Text Color ------ */
 
@@ -50,3 +87,4 @@ a:link {
     color: black !important;
     background-color: transparent !important;
  }
+

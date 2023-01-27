@@ -10,7 +10,7 @@
 <body>
 
 <!-- Navigation bar -->
-<nav class="ui inverted attached segment m-padded-tb-mini" >
+<nav class="ui inverted attached segment m-padded-tb-mini">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
@@ -27,12 +27,15 @@
             </div>
         </div>
     </div>
+    <a href="#" class="ui menu toggle black icon button m-top-right m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
 </nav>
 
 <!-- Content -->
 <div class="m-padded-tb-large">
     <div class="ui container">
-        <div class="ui grid">
+        <div class="ui stackable grid">
             <!-- left side -->
             <div class="eleven wide column">
                 <!-- list header -->
@@ -51,7 +54,7 @@
                 <div class="ui attached segment">
                     <!-- article block -->
                     <div class="ui padded vertical segment">
-                        <div class="ui grid">
+                        <div class="ui mobile reversed stackable grid">
                             <div class="eleven wide column">
                                 <!-- Article Title -->
                                 <h3 class="ui header"><a href="">Article Title Here</a></h3>
@@ -92,7 +95,7 @@
 
                     <!-- article block -->
                     <div class="ui padded vertical segment">
-                        <div class="ui grid">
+                        <div class="ui mobile reversed stackable grid">
                             <div class="eleven wide column">
                                 <!-- Article Title -->
                                 <h3 class="ui header"><a href="">Article Title Here</a></h3>
@@ -117,6 +120,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- article type -->
                                     <div class="right aligned five wide column">
                                         <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
                                     </div>
@@ -149,16 +153,108 @@
 
             <!-- right side -->
             <div class="five wide column">
+                <!-- types list segement-->
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="idea icon"></i>Article Types
+                            </div>
+                            <div class="right aligned column">
+                                <a href="">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui teal segment">
+                        <!-- types list -->
+                        <div class="ui fluid vertical menu">
+                            <!-- article type -->
+                            <a href="" class="item">
+                                Coding
+                                <!-- article count in this type -->
+                                <div class="ui teal basic label">
+                                    2
+                                </div>
+                            </a>
+                            <!-- article type -->
+                            <a href="" class="item">Thoughts
+                                <!-- article count in this type -->
+                                <div class="ui teal basic label">
+                                    0
+                                </div>
+                            </a>
 
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- tags segment -->
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <div class="ui two column grid">
+                            <div class="column">
+                                <i class="tags icon"></i>Tags
+                            </div>
+                            <div class="right aligned column">
+                                <a href="">more <i class="angle double right icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- tags list -->
+                    <div class="ui teal segment">
+                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                            Java
+                            <!-- articel number with this tag -->
+                            <div class="detail">10</div>
+                        </a>
+                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                            JavaScript
+                            <!-- articel number with this tag -->
+                            <div class="detail">3</div>
+                        </a>
+                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                            Web
+                            <!-- articel number with this tag -->
+                            <div class="detail">2</div>
+                        </a>
+                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                            Python
+                            <!-- articel number with this tag -->
+                            <div class="detail">6</div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- most viewed articles segment -->
+                <div class="ui segments">
+                    <div class="ui secondary segment">
+                        <i class="bookmark icon"></i>Most Viewed
+                    </div>
+                    <!-- most view article list -->
+                    <div class="ui segment">
+                        <a href="" targe="_blank">Article Title Here</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="" targe="_blank">Article Title Here</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href="" targe="_blank">Article Title Here</a>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+<br>
+<br>
+
 <!-- Footer -->
 <footer class="ui inverted vertical segment m-padded-tb-massive">
     <div class="ui center aligned container">
-        <div class="ui inverted divided grid">
+        <div class="ui inverted divided stackable grid">
             <div class="four wide column">
                 <h3 class="ui inverted header">Social Medias</h3>
                 <div class="ui inverted link list">
@@ -175,7 +271,7 @@
             </div>
             <div class="eight wide column">
                 <h3 class="ui inverted header">About This Blog</h3>
-                <p class="item">This is my personal blog. I'm going to post articles about coding and thinking.</p>
+                <p class="item">This is my personal blog. I'm going to post articles about coding and thoughts.</p>
                 <p class="item">I will be glad if my articles are useful for you.</p>
             </div>
         </div>
@@ -186,5 +282,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<!-- menu bottom click monitor in mobile devices -->
+<script>
+        $('.menu.toggle').click(function () {
+          $('.m-item').toggleClass('m-mobile-hide');
+        });
+      </script>
 </body>
 </html>
