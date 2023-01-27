@@ -1,5 +1,8 @@
-/* ------ padding ------ */
+body{
+    background: url("../images/background.png");
+}
 
+/* ------ padding ------ */
 .m-padded-small{
     padding: 0.4em !important;
 }
@@ -29,6 +32,15 @@
     padding-bottom: 5em !important;
 }
 
+/* ------ opacity ------ */
+.m-opacity-mini{
+    opacity: 0.8 !important;
+}
+
+.m-opacity-tiny{
+    opacity: 0.6 !important;
+}
+
 /* ------ margin ------ */
 .m-margin-tb-tiny{
     margin-top: 0.3em !important;
@@ -50,7 +62,7 @@
 .m-mobile-show {
     display: none !important;
  }
-
+ 
  @media screen and (max-width: 768px){
      .m-mobile-hide {
          display: none !important;
@@ -88,3 +100,4 @@ a:link {
     background-color: transparent !important;
  }
 
+ 
