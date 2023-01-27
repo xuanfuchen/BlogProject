@@ -3,36 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Article Types</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <link rel="stylesheet" th:href="@{/css/custom.css}">
 </head>
-<body>
 
-<!------ Navigation bar ------>
-<nav class="ui inverted attached segment m-padded-tb-mini">
-    <div class="ui container">
-        <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">XC Blog</h2>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="small home icon"></i>Home Page</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i>Types</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i>Tags</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small clone icon"></i>Archive</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small info icon"></i>About me</a>
-            <div class="right m-item item m-mobile-hide">
-                <div class="ui icon input m-margin-tb-tiny">
-                    <input type="text" placeholder="Search....">
-                    <i class="search link icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#" class="ui menu toggle black icon button m-top-right m-mobile-show">
-        <i class="sidebar icon"></i>
-    </a>
-</nav>
+<!--import navigation bar fragment-->
+<div th:replace="fragments/guest-nav-bar :: guest-nav"></div>
 
 <!------ Content ------>
+<body>
 <div class="m-padded-tb-large">
     <div class="ui container">
         <div class="ui stackable grid">
@@ -251,34 +231,6 @@
 <br>
 <br>
 
-<!------ Footer ------>
-<footer class="ui inverted vertical segment m-padded-tb-massive">
-    <div class="ui center aligned container">
-        <div class="ui inverted divided stackable grid">
-            <div class="four wide column">
-                <h3 class="ui inverted header m-opacity-mini">Social Medias</h3>
-                <div class="ui inverted link list">
-                    <a href="https://www.linkedin.com/in/xuanfu-chen-b72191211/" target="_blank" class="item">My LinkedIn</a>
-                </div>
-            </div>
-            <div class="four wide column">
-                <h3 class="ui inverted header m-opacity-mini">Contact Me</h3>
-                <div class="ui inverted link list">
-                    <a href="#" class="item">Email: xuanfuwork17(at)gmail.com</a>
-                    <a href="#" class="item">Tencent QQ: 1578730391</a>
-                </div>
-            </div>
-            <div class="eight wide column">
-                <h3 class="ui inverted header m-opacity-mini">About This Blog</h3>
-                <p class="m-opacity-mini">This is my personal blog. I'm going to post articles about coding and thoughts.</p>
-                <p class="m-opacity-mini">I will be glad if my articles are useful for you.</p>
-            </div>
-        </div>
-        <div class="ui inverted section divider"></div>
-        <p class="m-opacity-tiny">Copyright © 2023 Xuanfu Chen</p>
-    </div>
-</footer>
-
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
@@ -289,4 +241,8 @@
         });
       </script>
 </body>
+
+<!--import footer fragment-->
+<div th:replace="fragments/footer :: footer"></div>
+
 </html>
