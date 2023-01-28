@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XC Blog - About me</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+
+<!--import navigation bar fragment-->
+<div th:replace="fragments/guest-nav-bar :: guest-nav"></div>
+
+<body>
+<!------ Content ------>
+<div class="m-container-narrow m-padded-tb-large">
+
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="five wide column">
+                <img src="https://via.placeholder.com/400" alt="" class="ui rounded image">
+            </div>
+            <div class="eleven wide column">
+                <div class="ui top attached segment">
+                    <h2 class="ui header">About Me</h2>
+                </div>
+                <!-- Personal Introduction -->
+                <div class="ui attached segment">
+                    <p class="m-text">
+                        My name is Xuanfu Chen, a new grad from York University. Now, I'm looking for my first full-time job.
+                        I have ~1 year of coop/intern experience on web developing. I'm a passionate and creative developer.
+                        I'm open-minded and learn new thing s quickly. Also, I'm always open to challenges and constructive feedback. : )
+                    </p>
+                </div>
+                <!-- Personal Tags -->
+                <div class="ui attached segment">
+                    <h4>What I enjoy: </h4>
+                    <div class="ui orange basic label">Coding</div>
+                    <div class="ui orange basic label">Reading</div>
+                    <div class="ui orange basic label">Sports</div>
+                    <div class="ui orange basic label">Gaming</div>
+                </div>
+                <!-- Skill Set -->
+                <div class="ui attached segment">
+                    <h4>Skills I've got: </h4>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Java</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Python</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">JavaScript</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">HTML</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">CSS</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Spring Boot</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Django</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">React.js</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Node.js</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">MySQL</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">... ...</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <h4>More on: </h4>
+                    <a href="https://github.com/xuanfuchen" target="_blank" class="ui circular big icon button"><i class="github icon"></i></a>
+                    <a href="https://www.linkedin.com/in/xuanfu-chen-b72191211/" target="_blank" class="ui circular big icon button"><i class="linkedin icon"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<!--import footer fragment-->
+<div th:replace="fragments/footer :: footer"></div>
+
+</html>

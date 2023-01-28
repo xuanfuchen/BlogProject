@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XC Blog - Tags</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+
+<!--import navigation bar fragment-->
+<div th:replace="fragments/guest-nav-bar :: guest-nav"></div>
+
+<body>
+<!------ Content ------>
+<div  class="m-padded-tb-large animated fadeIn">
+  <div class="ui container">
+    <!--header-->
+    <div class="ui top attached segment">
+      <div class="ui middle aligned two column grid">
+        <div class="column">
+          <h3 class="ui teal header">Types</h3>
+        </div>
+        <div class="right aligned column">
+          <h3 class="ui orange header m-inline-block">2&nbsp;</h3> Tags In Total
+        </div>
+      </div>
+    </div>
+
+    <div class="ui attached segment m-padded-tb-large">
+
+      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
+        Java
+        <!-- articel number with this tag -->
+        <div class="detail">10</div>
+      </a>
+      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
+        JavaScript
+        <!-- articel number with this tag -->
+        <div class="detail">3</div>
+      </a>
+      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
+        Web
+        <!-- articel number with this tag -->
+        <div class="detail">2</div>
+      </a>
+      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
+        Python
+        <!-- articel number with this tag -->
+        <div class="detail">6</div>
+      </a>
+
+    </div>
+
+    <div class="ui top attached teal segment">
+      <!-- article block -->
+      <div class="ui padded vertical segment m-padded-tb-large m-padded-lr-responsive">
+        <div class="ui mobile reversed stackable grid">
+          <div class="eleven wide column">
+            <!-- Article Title -->
+            <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
+            <!-- Article abstract -->
+            <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="ui stackable grid">
+              <div class="row">
+                <div class="eleven wide column">
+                  <div class="ui horizontal link list">
+                    <div class="item">
+                      <!-- author -->
+                      <div class="content">
+                        <p>Xuanfu Chen</p>
+                      </div>
+                    </div>
+                    <!-- upload time -->
+                    <div class="item">
+                      <i class="calendar icon"></i> 2023/1/27
+                    </div>
+                    <!-- view count -->
+                    <div class="item">
+                      <i class="eye icon"></i> 215
+                    </div>
+                  </div>
+                </div>
+                <div class="right aligned five wide column">
+                  <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
+                </div>
+              </div>
+
+              <!-- article tags -->
+              <div class="row">
+                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                  Java
+                </a>
+                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                  JavaScript
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <!-- image -->
+          <div class="five wide column">
+            <a href="#" target="_blank">
+              <img src="https://www.rokill.co.uk/wp-content/uploads/2016/02/Placeholder-800x450.png" alt="" class="ui round image">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- article block -->
+      <div class="ui padded vertical segment m-padded-tb-large m-padded-lr-responsive">
+        <div class="ui mobile reversed stackable grid">
+          <div class="eleven wide column">
+            <!-- Article Title -->
+            <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
+            <!-- Article abstract -->
+            <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="ui stackable grid">
+              <div class="row">
+                <div class="eleven wide column">
+                  <div class="ui horizontal link list">
+                    <div class="item">
+                      <!-- author -->
+                      <div class="content">
+                        <p>Xuanfu Chen</p>
+                      </div>
+                    </div>
+                    <!-- upload time -->
+                    <div class="item">
+                      <i class="calendar icon"></i> 2023/1/27
+                    </div>
+                    <!-- view count -->
+                    <div class="item">
+                      <i class="eye icon"></i> 215
+                    </div>
+                  </div>
+                </div>
+                <div class="right aligned five wide column">
+                  <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
+                </div>
+              </div>
+
+              <!-- article tags -->
+              <div class="row">
+                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                  Java
+                </a>
+                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                  JavaScript
+                </a>
+              </div>
+            </div>
+
+          </div>
+          <!-- image -->
+          <div class="five wide column">
+            <a href="#" target="_blank">
+              <img src="https://www.rokill.co.uk/wp-content/uploads/2016/02/Placeholder-800x450.png" alt="" class="ui round image">
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+  <br>
+  <br>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+  <!-- menu bottom click monitor in mobile devices -->
+  <script>
+        $('.menu.toggle').click(function () {
+          $('.m-item').toggleClass('m-mobile-hide');
+        });
+      </script>
+</body>
+<!--import footer fragment-->
+<div th:replace="fragments/footer :: footer"></div>
+
+</html>
