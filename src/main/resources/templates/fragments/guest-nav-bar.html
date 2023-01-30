@@ -1,13 +1,15 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
 <!------ Navigation bar ------>
-<nav th:fragment="guest-nav" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:fragment="guest-nav(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">XC Blog</h2>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="small home icon"></i>Home Page</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i>Types</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i>Tags</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small clone icon"></i>Archive</a>
-            <a href="#" class="m-item item m-mobile-hide"><i class="small info icon"></i>About me</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="small home icon"></i>Home Page</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="small idea icon"></i>Types</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="small tags icon"></i>Tags</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="small clone icon"></i>Archive</a>
+            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="small info icon"></i>About me</a>
             <div class="right m-item item m-mobile-hide">
                 <div class="ui icon input m-margin-tb-tiny">
                     <input type="text" placeholder="Search....">
@@ -20,3 +22,5 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
+</body>
+</html>

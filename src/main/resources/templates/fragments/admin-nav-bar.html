@@ -1,0 +1,33 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+
+<!------ Navigation bar ------>
+<nav th:fragment="admin-nav" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">XC Blog</h2>
+            <a href="#" class=" m-item item m-mobile-hide"><i class="small home icon"></i>Blogs</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i>Types</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i>Tags</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="small clone icon"></i>Archive</a>
+            <div class="right menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img src="https://ionicframework.com/docs/img/demos/avatar.svg" class="ui avatar image">
+                        Xuanfu Chen
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="" class="item"><i class="logout icon"></i>Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-top-right m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+</body>
+</html>

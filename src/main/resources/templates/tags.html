@@ -9,7 +9,7 @@
 </head>
 
 <!--import navigation bar fragment-->
-<div th:replace="fragments/guest-nav-bar :: guest-nav"></div>
+<div th:replace="fragments/guest-nav-bar :: guest-nav(3)"></div>
 
 <body>
 <!------ Content ------>
@@ -54,108 +54,82 @@
 
     <div class="ui top attached teal segment">
       <!-- article block -->
-      <div class="ui padded vertical segment m-padded-tb-large m-padded-lr-responsive">
+      <div class="ui padded vertical segment">
         <div class="ui mobile reversed stackable grid">
           <div class="eleven wide column">
             <!-- Article Title -->
             <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
             <!-- Article abstract -->
             <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="ui stackable grid">
-              <div class="row">
-                <div class="eleven wide column">
-                  <div class="ui horizontal link list">
-                    <div class="item">
-                      <!-- author -->
-                      <div class="content">
-                        <p>Xuanfu Chen</p>
-                      </div>
-                    </div>
-                    <!-- upload time -->
-                    <div class="item">
-                      <i class="calendar icon"></i> 2023/1/27
-                    </div>
-                    <!-- view count -->
-                    <div class="item">
-                      <i class="eye icon"></i> 215
+            <div class="ui grid">
+              <div class="eleven wide column">
+                <div class="ui horizontal link list">
+                  <div class="item">
+                    <!-- author -->
+                    <div class="content">
+                      <p>Xuanfu Chen</p>
                     </div>
                   </div>
-                </div>
-                <div class="right aligned five wide column">
-                  <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
+                  <!-- upload time -->
+                  <div class="item">
+                    <i class="calendar icon"></i> 2023/1/27
+                  </div>
+                  <!-- view count -->
+                  <div class="item">
+                    <i class="eye icon"></i> 215
+                  </div>
                 </div>
               </div>
-
-              <!-- article tags -->
-              <div class="row">
-                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                  Java
-                </a>
-                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                  JavaScript
-                </a>
+              <div class="right aligned five wide column">
+                <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
               </div>
             </div>
-
           </div>
           <!-- image -->
           <div class="five wide column">
             <a href="#" target="_blank">
-              <img src="https://www.rokill.co.uk/wp-content/uploads/2016/02/Placeholder-800x450.png" alt="" class="ui round image">
+              <img src="https://alaskabirchsyrup.com/wp-content/uploads/2017/08/placeholder-800x450.jpg" class="ui rounded image">
             </a>
           </div>
         </div>
       </div>
 
       <!-- article block -->
-      <div class="ui padded vertical segment m-padded-tb-large m-padded-lr-responsive">
+      <div class="ui padded vertical segment">
         <div class="ui mobile reversed stackable grid">
           <div class="eleven wide column">
             <!-- Article Title -->
             <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
             <!-- Article abstract -->
             <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="ui stackable grid">
-              <div class="row">
-                <div class="eleven wide column">
-                  <div class="ui horizontal link list">
-                    <div class="item">
-                      <!-- author -->
-                      <div class="content">
-                        <p>Xuanfu Chen</p>
-                      </div>
-                    </div>
-                    <!-- upload time -->
-                    <div class="item">
-                      <i class="calendar icon"></i> 2023/1/27
-                    </div>
-                    <!-- view count -->
-                    <div class="item">
-                      <i class="eye icon"></i> 215
+            <div class="ui grid">
+              <div class="eleven wide column">
+                <div class="ui horizontal link list">
+                  <div class="item">
+                    <!-- author -->
+                    <div class="content">
+                      <p>Xuanfu Chen</p>
                     </div>
                   </div>
-                </div>
-                <div class="right aligned five wide column">
-                  <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
+                  <!-- upload time -->
+                  <div class="item">
+                    <i class="calendar icon"></i> 2023/1/27
+                  </div>
+                  <!-- view count -->
+                  <div class="item">
+                    <i class="eye icon"></i> 215
+                  </div>
                 </div>
               </div>
-
-              <!-- article tags -->
-              <div class="row">
-                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                  Java
-                </a>
-                <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                  JavaScript
-                </a>
+              <div class="right aligned five wide column">
+                <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
               </div>
             </div>
-
           </div>
           <!-- image -->
           <div class="five wide column">
             <a href="#" target="_blank">
-              <img src="https://www.rokill.co.uk/wp-content/uploads/2016/02/Placeholder-800x450.png" alt="" class="ui round image">
+              <img src="https://alaskabirchsyrup.com/wp-content/uploads/2017/08/placeholder-800x450.jpg" class="ui rounded image">
             </a>
           </div>
         </div>
