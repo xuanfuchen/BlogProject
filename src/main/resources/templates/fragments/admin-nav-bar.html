@@ -5,8 +5,7 @@
 <nav th:fragment="admin-nav" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
-            <h2 class="ui teal header item">XC Blog</h2>
-            <a href="#" class=" m-item item m-mobile-hide"><i class="small home icon"></i>Blogs</a>
+            <h2 class="ui teal header item">Admin Page</h2>
             <a href="#" class="m-item item m-mobile-hide"><i class="small idea icon"></i>Types</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="small tags icon"></i>Tags</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="small clone icon"></i>Archive</a>
@@ -18,7 +17,7 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="" class="item"><i class="logout icon"></i>Log out</a>
+                        <a th:href="@{/admin/logout}" class="item"><i class="logout icon"></i>Log out</a>
                     </div>
                 </div>
             </div>
