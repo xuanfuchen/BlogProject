@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XC Blog - Type Manage</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+
+<!--import navigation bar fragment-->
+<div th:replace="fragments/admin-nav-bar :: admin-nav(2)"></div>
+
+<body>
+<!-- secondary nav bar -->
+<div class="ui attached pointing teal menu">
+  <div class="ui container">
+    <div class="right menu">
+      <a href="" class="item">Add a New Type</a>
+      <a href="" class="active item">Type List</a>
+    </div>
+  </div>
+</div>
+<!------ Content ------>
+<div class="m-padded-tb-large m-container-narrow">
+  <div class="ui container">
+    <!-- add article button -->
+    <div class="field right aligned">
+      <a href="" class="ui mini teal button m-padded-tb-medium"><h4>Add a Type</h4></a>
+    </div>
+
+    <table class="ui celled table">
+      <thead>
+      <tr>
+        <th>No.</th>
+        <th>Type Name</th>
+        <th>Operation</th>
+      </tr>
+      </thead>
+      <!---- list body ---->
+      <tbody>
+      <tr th:each="type,iterStat : ${page.content}">
+        <!-- article number -->
+        <td th:text="${iterStat.count}}"></td>
+        <!-- title -->
+        <td th:text="${type.name}}"></td>
+        <!-- Operation -->
+        <td>
+          <a href="" th:href="@{/admin/typeManage/{id}/update (id=${type.id})}" class="ui mini teal basic button">Edit</a>
+          <a href="" th:href="@{/admin/typeManage/{id}/delete (id=${type.id})}" class="ui mini red button">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+
+      <tfoot>
+      <tr>
+        <th colspan="6">
+          <div class="ui right floated pagination menu">
+            <!-- page icons -->
+            <!-- prev page -->
+            <a th:href="@{/admin/typeManage (page=${page.number} - 1)}" class="icon item">
+              <i class="left chevron icon"></i>
+            </a>
+            <!-- next page -->
+            <a th:href="@{/admin/typeManage (page=${page.number} + 1)}" class="icon item">
+              <i class="right chevron icon"></i>
+            </a>
+          </div>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+
+  </div>
+</div>
+
+<br>
+<br>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<!-- menu bottom click monitor in mobile devices -->
+<script>
+        $('.menu.toggle').click(function () {
+          $('.m-item').toggleClass('m-mobile-hide');
+        });
+        $('.ui.dropdown').dropdown();
+    </script>
+</body>
+
+<!--import footer fragment-->
+<div th:replace="fragments/footer :: footer"></div>
+
+</html>

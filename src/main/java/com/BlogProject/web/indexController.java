@@ -8,6 +8,6 @@ public class indexController {
 
     @GetMapping("/")
     public String index(){
-        return "/admin/adminWelcomePage.html";
+        return "/admin/typeManage";
     }
 }
