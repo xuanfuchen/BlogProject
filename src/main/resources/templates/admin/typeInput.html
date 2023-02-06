@@ -12,35 +12,33 @@
 <div th:replace="fragments/admin-nav-bar :: admin-nav(2)"></div>
 
 <body>
-<!-- secondary nav bar -->
-<div class="ui attached pointing teal menu">
-    <div class="ui container">
-        <div class="right menu">
-            <a href="" class="active item">Add a New Type</a>
-            <a href="" class="item">Type List</a>
-        </div>
-    </div>
-</div>
 
 <br><br><br><br><br>
 <!------ Content ------>
 <div class="m-padded-tb-large m-container-narrow" style="max-width: 40em !important;">
     <div class="ui container">
-        <form action="" method="post" class="ui form">
+        <form method="post" class="ui form" th:object="${type}" th:action="*{id}==0 ? @{/admin/typeManage} : @{/admin/typeManage/{id} (id = *{id})}">
+<!--            <input type="hidden" name="id" th:value="*{id}">-->
             <!-- article title -->
             <div class="required field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">Type Name</label>
-                    <input type="text" name="name">
+                    <input type="text" name="name" th:value="*{name}">
                 </div>
             </div>
 
             <div class="ui error message"></div>
-
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+              <i class="close icon"></i>
+              <div class="header">Invalid value!</div>
+              <p th:errors="*{name}">Name cannot be Empty</p>
+            </div>
+            /*/-->
             <!-- post buttons -->
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)">Back</button>
-                <button class="ui teal button">Add</button>
+                <button class="ui teal submit button">Submit</button>
             </div>
         </form>
     </div>
@@ -62,21 +60,21 @@
         // Pop error message(s) if there's empty field(s)
         $('.ui.form').form({
             fields : {
-                title : {
-                    identifier: 'title',
+                name : {
+                    identifier: 'name',
                     rules: [{
                         type : 'empty',
-                        prompt: 'Title: Please Enter a Blog Title'
-                    }]
-                },
-                content : {
-                    identifier: 'content',
-                    rules: [{
-                        type : 'empty',
-                        prompt: 'Content: Please Enter Content'
+                        prompt: 'Please Enter a Type Name'
                     }]
                 }
             }
+        });
+
+        $('.message .close')
+          .on('click', function(){
+            $(this)
+              .closest('.message')
+              .transition('fade');
         });
     </script>
 </body>

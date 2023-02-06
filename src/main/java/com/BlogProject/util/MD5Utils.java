@@ -5,6 +5,12 @@ import java.security.MessageDigest;
 public class MD5Utils {
     static final char hexDigits[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
+    /**
+     * This method returns a MD5 value of input String
+     * @param plainText
+     * @return MD5 value of plainText
+     */
+
     public static String MD5Upper(String plainText) {
         try {
             // 获得MD5摘要算法的 MessageDigest 对象
