@@ -64,7 +64,7 @@ public class TypeController {
     }
 
     @PostMapping("/typeManage/{id}")
-    public String editType(Type type, BindingResult result,@PathVariable Long id, RedirectAttributes attributes){
+    public String editType(@Valid Type type, BindingResult result,@PathVariable Long id, RedirectAttributes attributes){
         if(typeService.getTypeByName(type.getName()) != null){
             result.rejectValue("name", "nameError", "Cannot have duplicate type name");
         }

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XC Blog - Type Manage</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+
+<!--import navigation bar fragment-->
+<div th:replace="fragments/admin-nav-bar :: admin-nav(3)"></div>
+
+<body>
+<!------ Content ------>
+<div class="m-padded-tb-large m-container-narrow">
+    <div class="ui container">
+        <!-- add article button -->
+        <div class="field right aligned">
+            <a th:href="@{/admin/tagManage/addTag}" class="ui mini teal button m-padded-tb-medium"><h4>Add a Tag</h4></a>
+        </div>
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header"></div>
+            <p th:text="${message}"></p>
+        </div>
+
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Tag Name</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+            <!---- list body ---->
+            <tbody>
+            <tr th:each="type,iStat : ${page.content}">
+                <!-- article number -->
+                <td th:text="${iStat.count}"></td>
+                <!-- title -->
+                <td th:text="${type.name}"></td>
+                <!-- Operation -->
+                <td>
+                    <a href="" th:href="@{/admin/tagManage/{id}/edit (id=${type.id})}" class="ui mini teal basic button">Edit</a>
+                    <a href="" th:href="@{/admin/tagManage/{id}/delete (id=${type.id})}" class="ui mini red button">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+
+            <tfoot>
+            <tr>
+                <th class="center aligned" colspan="6" th:if="${page.totalPages} > 1">
+                    <div class="ui pagination menu">
+                        <!-- page icons -->
+                        <!-- prev page -->
+                        <a th:href="@{/admin/tagManage (page=${page.number} - 1)}" th:unless="${page.first}" class="icon item">
+                            <i class="left chevron icon"></i>
+                        </a>
+                        <!-- next page -->
+                        <a th:href="@{/admin/tagManage (page=${page.number} + 1)}" th:unless="${page.last}" class="icon item">
+                            <i class="right chevron icon"></i>
+                        </a>
+                    </div>
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+
+<br>
+<br>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<!-- menu bottom click monitor in mobile devices -->
+<script>
+        $('.menu.toggle').click(function () {
+          $('.m-item').toggleClass('m-mobile-hide');
+        });
+
+        $('.ui.dropdown').dropdown();
+
+        $('.message .close')
+          .on('click', function(){
+            $(this)
+              .closest('.message')
+              .transition('fade');
+        });
+</script>
+</body>
+
+<!--import footer fragment-->
+<div th:replace="fragments/footer :: footer"></div>
+
+</html>

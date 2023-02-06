@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XC Blog - Add Tag</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" th:href="@{/css/custom.css}">
+</head>
+
+<!--import navigation bar fragment-->
+<div th:replace="fragments/admin-nav-bar :: admin-nav(3)"></div>
+
+<body>
+
+<br><br><br><br><br>
+<!------ Content ------>
+<div class="m-padded-tb-large m-container-narrow" style="max-width: 40em !important;">
+  <div class="ui container">
+    <form method="post" class="ui form" th:object="${tag}" th:action="*{id}==0 ? @{/admin/tagManage} : @{/admin/tagManage/{id} (id = *{id})}">
+      <input type="hidden" name="id" th:value="*{id}">
+      <!-- article title -->
+      <div class="required field">
+        <div class="ui left labeled input">
+          <label class="ui teal basic label">Tag Name</label>
+          <input type="text" name="name" th:value="*{name}">
+        </div>
+      </div>
+
+      <div class="ui error message"></div>
+      <!--/*/
+      <div class="ui negative message" th:if="${#fields.hasErrors('name')}"  >
+        <i class="close icon"></i>
+        <div class="header">Invalid value!</div>
+        <p th:errors="*{name}">Name cannot be Empty</p>
+      </div>
+      /*/-->
+      <!-- post buttons -->
+      <div class="ui right aligned container">
+        <button type="button" class="ui button" onclick="window.history.go(-1)">Back</button>
+        <button class="ui teal submit button" th:text="*{id}==null ? Add : Edit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<br><br><br><br><br><br><br>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<!-- menu bottom click monitor in mobile devices -->
+<script>
+        $('.menu.toggle').click(function () {
+          $('.m-item').toggleClass('m-mobile-hide');
+        });
+
+        $('.ui.dropdown').dropdown();
+
+        // Pop error message(s) if there's empty field(s)
+        $('.ui.form').form({
+            fields : {
+                name : {
+                    identifier: 'name',
+                    rules: [{
+                        type : 'empty',
+                        prompt: 'Please Enter a Tag Name'
+                    }]
+                }
+            }
+        });
+
+        $('.message .close')
+          .on('click', function(){
+            $(this)
+              .closest('.message')
+              .transition('fade');
+        });
+    </script>
+</body>
+
+<!--import footer fragment-->
+<div th:replace="fragments/footer :: footer"></div>
+
+</html>

@@ -45,7 +45,7 @@ public class TypeServiceImp implements TypeService{
     public Type updateType(Long id, Type type) {
         Type t = typeRepository.getReferenceById(id);
         if (t == null){
-            throw new NotFoundException("Type not exist");
+            throw new NotFoundException("Type does not exist");
         }
         BeanUtils.copyProperties(type, t);
         return typeRepository.save(t);

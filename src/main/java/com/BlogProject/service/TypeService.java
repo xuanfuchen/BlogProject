@@ -1,8 +1,6 @@
 package com.BlogProject.service;
 
-import com.BlogProject.dao.TypeRepository;
 import com.BlogProject.po.Type;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -18,7 +18,7 @@
 <div class="m-padded-tb-large m-container-narrow" style="max-width: 40em !important;">
     <div class="ui container">
         <form method="post" class="ui form" th:object="${type}" th:action="*{id}==0 ? @{/admin/typeManage} : @{/admin/typeManage/{id} (id = *{id})}">
-<!--            <input type="hidden" name="id" th:value="*{id}">-->
+            <input type="hidden" name="id" th:value="*{id}">
             <!-- article title -->
             <div class="required field">
                 <div class="ui left labeled input">
@@ -38,7 +38,7 @@
             <!-- post buttons -->
             <div class="ui right aligned container">
                 <button type="button" class="ui button" onclick="window.history.go(-1)">Back</button>
-                <button class="ui teal submit button">Submit</button>
+                <button class="ui teal submit button" th:text="*{id}==0 ? Add : Edit">Submit</button>
             </div>
         </form>
     </div>
