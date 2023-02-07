@@ -9,7 +9,9 @@ import org.hibernate.annotations.NotFound;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,12 @@ public class BlogServiceImp implements BlogService{
         return null;
     }
 
+    /**
+     * This method serves the searching feature in
+     * @param pageable
+     * @param blog
+     * @return A page of blogs that meets the required name/type/recommend status
+     */
     @Override
     public Page<Blog> listBlog(Pageable pageable, Blog blog) {
         return blogRepository.findAll(new Specification<Blog>() {
@@ -59,17 +67,29 @@ public class BlogServiceImp implements BlogService{
         }, pageable);
     }
 
+    /**
+     * This method return all blogs as a Page object
+     * @param pageable
+     * @return Page<Blog> that contains all blogs
+     */
+
+    @Override
+    public Page<Blog> listBlog(Pageable pageable) {
+        return blogRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Blog> listBlog(String query, Pageable pageable) {
+        return blogRepository.findByQuery(query, pageable);
+    }
+
     @Transactional
     @Override
     public Blog saveBlog(Blog blog) {
         //if it's a new blog, initialize create time, update time, and view
-        if (blog.getId() == null){
-            blog.setCreateTime(new Date());
-            blog.setUpdateTime(new Date());
-            blog.setView(0);
-        } else { //only need to change the update time
-            blog.setUpdateTime(new Date());
-        }
+        blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
+        blog.setView(0);
 
         return blogRepository.save(blog);
     }
@@ -81,8 +101,21 @@ public class BlogServiceImp implements BlogService{
         if(b == null){
             throw new NotFoundException("Blog does not exist");
         }
+        blog.setUpdateTime(new Date());
         BeanUtils.copyProperties(blog, b, MyBeanUtils.getNullPropertyNames(blog));
         return blogRepository.save(b);
+    }
+
+    @Override
+    public Page<Blog> publishedBlogs(Pageable pageable) {
+        return blogRepository.findPublished(pageable);
+    }
+
+    @Override
+    public List<Blog> recommendBlogs(Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        return blogRepository.findTop(pageable);
     }
 
     @Transactional

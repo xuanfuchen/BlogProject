@@ -19,7 +19,7 @@
     <div class="ui top attached segment">
       <div class="ui middle aligned two column grid">
         <div class="column">
-          <h3 class="ui teal header">Types</h3>
+          <h3 class="ui teal header">Tags</h3>
         </div>
         <div class="right aligned column">
           <h3 class="ui orange header m-inline-block">2&nbsp;</h3> Tags In Total
@@ -94,48 +94,25 @@
         </div>
       </div>
 
-      <!-- article block -->
-      <div class="ui padded vertical segment">
-        <div class="ui mobile reversed stackable grid">
-          <div class="eleven wide column">
-            <!-- Article Title -->
-            <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
-            <!-- Article abstract -->
-            <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="ui grid">
-              <div class="eleven wide column">
-                <div class="ui horizontal link list">
-                  <div class="item">
-                    <!-- author -->
-                    <div class="content">
-                      <p>Xuanfu Chen</p>
-                    </div>
-                  </div>
-                  <!-- upload time -->
-                  <div class="item">
-                    <i class="calendar icon"></i> 2023/1/27
-                  </div>
-                  <!-- view count -->
-                  <div class="item">
-                    <i class="eye icon"></i> 215
-                  </div>
-                </div>
-              </div>
-              <div class="right aligned five wide column">
-                <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
-              </div>
-            </div>
-          </div>
-          <!-- image -->
-          <div class="five wide column">
-            <a href="#" target="_blank">
-              <img src="https://alaskabirchsyrup.com/wp-content/uploads/2017/08/placeholder-800x450.jpg" class="ui rounded image">
-            </a>
-          </div>
+    </div>
+
+    <!-- list footer -->
+    <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+      <div class="ui middle aligned two column grid">
+        <div class="column">
+          <a th:href="@{/admin/tagManage (page=${page.number} - 1)}"
+             th:unless="${page.first}"
+             class="ui mini teal basic button">Prev Page</a>
+        </div>
+
+        <div class="right aligned column">
+          <a th:href="@{/admin/tagManage (page=${page.number} + 1)}"
+             th:unless="${page.last}"
+             class="ui mini teal basic button">Next Page</a>
         </div>
       </div>
-
     </div>
+
   </div>
 </div>
   <br>

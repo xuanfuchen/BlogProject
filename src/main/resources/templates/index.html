@@ -25,7 +25,7 @@
                             <h3 class="ui teal header">Blog</h3>
                         </div>
                         <div class="right aligned column">
-                            <h4 class="ui orange header m-inline-block">2&nbsp;</h4> Blogs In Total
+                            <h4 class="ui orange header m-inline-block" th:text="${page.totalElements}">2&nbsp;</h4> Blogs In Total
                         </div>
                     </div>
                 </div>
@@ -33,83 +33,41 @@
                 <!-- article list -->
                 <div class="ui attached segment">
                     <!-- article block -->
-                    <div class="ui padded vertical segment">
+                    <div class="ui padded vertical segment" th:each="blog : ${page.content}">
                         <div class="ui mobile reversed stackable grid">
                             <div class="eleven wide column">
                                 <!-- Article Title -->
-                                <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
+                                <h3 class="ui header" ><a th:href="@{/blog/{id} (id=${blog.id})}" class="blackLink" th:text="${blog.title}">Article Title Here</a></h3>
                                 <!-- Article abstract -->
-                                <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <p th:text="|${blog.blogAbstract}... ...|">blog abstract</p>
                                 <div class="ui grid">
                                     <div class="eleven wide column">
                                         <div class="ui horizontal link list">
                                             <div class="item">
                                                 <!-- author -->
                                                 <div class="content">
-                                                    <p>Xuanfu Chen</p>
+                                                    <p th:text="${blog.user.nickname}">Xuanfu Chen</p>
                                                 </div>
                                             </div>
                                             <!-- upload time -->
                                             <div class="item">
-                                                <i class="calendar icon"></i> 2023/1/27
+                                                <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">Update date</span>
                                             </div>
                                             <!-- view count -->
                                             <div class="item">
-                                                <i class="eye icon"></i> 215
+                                                <i class="eye icon"></i><span th:text="${blog.view}"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
+                                        <a href="#" target="_blank" class="ui orange basic label m-padded-small" th:text="${blog.type.name}">Coding</a>
                                     </div>
                                 </div>
                             </div>
                             <!-- image -->
                             <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://alaskabirchsyrup.com/wp-content/uploads/2017/08/placeholder-800x450.jpg" class="ui rounded image">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- article block -->
-                    <div class="ui padded vertical segment">
-                        <div class="ui mobile reversed stackable grid">
-                            <div class="eleven wide column">
-                                <!-- Article Title -->
-                                <h3 class="ui header"><a href="" class="blackLink">Article Title Here</a></h3>
-                                <!-- Article abstract -->
-                                <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                                <div class="ui grid">
-                                    <div class="eleven wide column">
-                                        <div class="ui horizontal link list">
-                                            <div class="item">
-                                                <!-- author -->
-                                                <div class="content">
-                                                    <p>Xuanfu Chen</p>
-                                                </div>
-                                            </div>
-                                            <!-- upload time -->
-                                            <div class="item">
-                                                <i class="calendar icon"></i> 2023/1/27
-                                            </div>
-                                            <!-- view count -->
-                                            <div class="item">
-                                                <i class="eye icon"></i> 215
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- article type -->
-                                    <div class="right aligned five wide column">
-                                        <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- image -->
-                            <div class="five wide column">
-                                <a href="#" target="_blank">
-                                    <img src="https://alaskabirchsyrup.com/wp-content/uploads/2017/08/placeholder-800x450.jpg" class="ui rounded image">
+                                <a href="#" th:href="@{/blog/{id} (id=${blog.id})}" target="_blank">
+                                    <img th:src="@{${blog.picture}}" class="ui rounded image">
                                 </a>
                             </div>
                         </div>
@@ -118,13 +76,18 @@
                 </div>
 
                 <!-- list footer -->
-                <div class="ui bottom attached segment">
+                <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <a href="#" class="ui mini teal basic button">Prev Page</a>
+                            <a th:href="@{/admin/tagManage (page=${page.number} - 1)}"
+                               th:unless="${page.first}"
+                               class="ui mini teal basic button">Prev Page</a>
                         </div>
+
                         <div class="right aligned column">
-                            <a href="#" class="ui mini teal basic button">Next Page</a>
+                            <a th:href="@{/admin/tagManage (page=${page.number} + 1)}"
+                               th:unless="${page.last}"
+                               class="ui mini teal basic button">Next Page</a>
                         </div>
                     </div>
                 </div>
@@ -149,21 +112,11 @@
                         <!-- types list -->
                         <div class="ui fluid vertical menu">
                             <!-- article type -->
-                            <a href="" class="item">
-                                Coding
+                            <a href="" class="item" th:each="type : ${types}">
+                                <span th:text="${type.name}"></span>
                                 <!-- article count in this type -->
-                                <div class="ui teal basic label">
-                                    2
-                                </div>
+                                <div class="ui teal basic label" th:text="${type.blogs.size}"></div>
                             </a>
-                            <!-- article type -->
-                            <a href="" class="item">Thoughts
-                                <!-- article count in this type -->
-                                <div class="ui teal basic label">
-                                    0
-                                </div>
-                            </a>
-
                         </div>
                     </div>
 
@@ -183,25 +136,11 @@
                     </div>
                     <!-- tags list -->
                     <div class="ui teal segment">
-                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                            Java
+                        <a href="" th:each="tag : ${tags}"
+                           class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                            <span th:text="${tag.name}"></span>
                             <!-- articel number with this tag -->
-                            <div class="detail">10</div>
-                        </a>
-                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                            JavaScript
-                            <!-- articel number with this tag -->
-                            <div class="detail">3</div>
-                        </a>
-                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                            Web
-                            <!-- articel number with this tag -->
-                            <div class="detail">2</div>
-                        </a>
-                        <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
-                            Python
-                            <!-- articel number with this tag -->
-                            <div class="detail">6</div>
+                            <div class="detail" th:text="${tag.blogs.size}"></div>
                         </a>
                     </div>
                 </div>
@@ -212,14 +151,8 @@
                         <i class="bookmark icon"></i>Recommends
                     </div>
                     <!-- most view article list -->
-                    <div class="ui segment">
-                        <a href="" targe="_blank">Article Title Here</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="" targe="_blank">Article Title Here</a>
-                    </div>
-                    <div class="ui segment">
-                        <a href="" targe="_blank">Article Title Here</a>
+                    <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                        <b><a th:href="@{/blog/{id} (id=${blog.id})}" targe="_blank" th:text="${blog.title}" class="blackLink">Article Title Here</a></b>
                     </div>
 
                 </div>
