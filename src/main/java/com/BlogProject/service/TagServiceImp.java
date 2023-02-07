@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TagServiceImp implements TagService{
@@ -41,6 +43,11 @@ public class TagServiceImp implements TagService{
         return tagRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Tag> listAllTag() {
+        return tagRepository.findAll();
+    }
+
     @Transactional
     @Override
     public Tag updateTag(Long id, Tag tag) {
@@ -50,6 +57,29 @@ public class TagServiceImp implements TagService{
         }
         BeanUtils.copyProperties(tag, t);
         return tagRepository.save(t);
+    }
+
+    @Override
+    public List<Tag> getTags(List<Tag> list) {
+        List<Long> idList = new ArrayList<>();
+        for(Tag tag : list){
+            idList.add(tag.getId());
+        }
+        return tagRepository.findAllById(idList);
+    }
+
+    @Override
+    public String getTagIds(List<Tag> Tags) {
+        StringBuilder sb = new StringBuilder();
+        for(Tag tag: Tags){
+            sb.append(tag.getId());
+            sb.append(",");
+        }
+        String tagIds = sb.toString();
+        if (tagIds.length() > 1) {
+            tagIds = tagIds.substring(0, tagIds.length() - 1);
+        }
+        return tagIds;
     }
 
     @Transactional

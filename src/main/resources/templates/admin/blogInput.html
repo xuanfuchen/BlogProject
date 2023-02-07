@@ -18,41 +18,42 @@
   <div class="ui container">
     <div class="right menu">
       <a href="" class="active item">Blog Posting</a>
-      <a href="" class="item">Blog List</a>
+      <a th:href="@{/admin/blogManage}" class="item">Blog List</a>
     </div>
   </div>
 </div>
 <!------ Content ------>
 <div class="m-padded-tb-large">
   <div class="ui container">
-    <form action="" method="post" class="ui form">
+    <form id="blog-form" th:object="${blog}" th:action="@{/admin/blogManage}" method="post" class="ui form">
+      <input type="hidden" name="published">
+      <input type="hidden" name="id" th:value="*{id}">
       <!-- article title -->
       <div class="required field">
         <div class="ui left labeled input">
-          <label class="ui basic label">Blog Title</label>
-          <input type="text" name="title">
+          <label class="ui basic teal label">Blog Title</label>
+          <input type="text" name="title" placeholder="Enter your title here" th:value="*{title}">
         </div>
       </div>
 
       <!-- article content -->
-      <div class="field">
+      <div class="required field">
         <div id="md-content" style="z-index: 1 !important;"> <!-- place markdown editor on top layer -->
-          <textarea name="content" cols="30" rows="10" placeholder="Blog Content" style="display: none;"></textarea>
+          <textarea name="content" cols="30" rows="10" placeholder="Blog Content" style="display: none;" th:text="*{content}"></textarea>
         </div>
       </div>
 
       <!-- type selection -->
       <div class="two fields">
-        <div class="field">
+        <div class="required field">
           <div class="ui left labeled action input">
             <label for="" class="ui compact teal basic label">Type</label>
             <div class="ui fluid selection teal basic dropdown">
-              <input type="hidden" name="type">
+              <input type="hidden" name="type.id" th:value="*{type}!=null ? *{type.id}">
               <i class="dropdown icon"></i>
               <div class="default text">Select a Type</div>
               <div class="menu">
-                <div class="item" data-value="1">Coding</div>
-                <div class="item" data-value="2">Thoughts</div>
+                <div th:each="type : ${types}" class="item" th:data-value="${type.id}" th:text="${type.name}">Types</div>
               </div>
             </div>
           </div>
@@ -63,12 +64,11 @@
           <div class="ui left labeled action input">
             <label for="" class="ui compact teal basic label">Tags</label>
             <div class="ui fluid multiple search selection teal basic dropdown">
-              <input type="hidden" name="tags">
+              <input type="hidden" name="tags" th:value="${tagIds}">
               <i class="dropdown icon"></i>
               <div class="default text">Select Tags or Type to Search</div>
               <div class="menu">
-                <div class="item" data-value="1">Java</div>
-                <div class="item" data-value="2">Python</div>
+                <div th:each="tag : ${tags}" class="item" th:data-value="${tag.id}" th:text="${tag.name}">Tags</div>
               </div>
             </div>
           </div>
@@ -80,19 +80,19 @@
         <div class="inline fields segment">
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="recommend" name="recommend" class="hidden">
+              <input type="checkbox" id="recommend" name="recommend" class="hidden" th:checked="*{recommend}">
               <label for="recommend">Recommend</label>
             </div>
           </div>
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="comment" name="recommend" checked class="hidden">
+              <input type="checkbox" id="comment" name="allowComment" checked class="hidden" th:checked="*{allowComment}">
               <label for="comment">Allow Comments</label>
             </div>
           </div>
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="allowShare" name="allowShare" checked class="hidden">
+              <input type="checkbox" id="allowShare" name="shareStatement" checked class="hidden" th:checked="*{shareStatement}">
               <label for="allowShare">Allow Share</label>
             </div>
           </div>
@@ -103,14 +103,14 @@
       <div class="field">
         <div class="ui left labeled input">
           <label class="ui teal basic label">Blog Pic</label>
-          <input type="text" name="picture" placeholder="Blog Picture URL">
+          <input type="text" name="picture" placeholder="Blog Picture URL" th:value="*{picture}">
         </div>
       </div>
 
       <!-- blog abstract -->
       <div class="field">
         <h3>Blog Abstract</h3>
-        <textarea name="abstract" id="" cols="30" rows="5"></textarea>
+        <textarea name="blogAbstract" id="" cols="30" rows="5" th:text="*{blogAbstract}"></textarea>
       </div>
 
       <div class="ui error message"></div>
@@ -118,8 +118,10 @@
       <!-- post buttons -->
       <div class="ui right aligned container">
         <button type="button" class="ui button" onclick="window.history.go(-1)">Back</button>
-        <button class="ui secondary button">Save</button>
-        <button class="ui teal button">Post</button>
+        <button type="button" id="save-btn" class="ui secondary button"
+                th:text="*{id}==null ? 'Save Draft' : 'Edit Draft'">Save</button>
+        <button type="button" id="publish-btn" class="ui teal button"
+                th:action="*{id}==null ? @{/admin/blogManage} : @{/admin/blogManage/{id} (id = *{id})}">Post</button>
       </div>
     </form>
   </div>
@@ -165,6 +167,18 @@
 
         $('.ui.dropdown').dropdown();
 
+        <!--    When click "Save" button, pass False as the value of hidden input "published"    -->
+        $('#save-btn').click(function(){
+          $('[name="published"]').val(false);
+          $('#blog-form').submit();
+        });
+
+        <!--    When click "Post" button, pass True as the value of hidden input "published"    -->
+        $('#publish-btn').click(function(){
+          $('[name="published"]').val(true);
+          $('#blog-form').submit();
+        });
+
         // Pop error message(s) if there's empty field(s)
         $('.ui.form').form({
             fields : {
@@ -187,13 +201,6 @@
                     rules: [{
                         type : 'empty',
                         prompt: 'Type: Please Select a Type'
-                    }]
-                },
-                tags : {
-                    identifier: 'tags',
-                    rules: [{
-                        type : 'empty',
-                        prompt: 'Tags: Please Select at Least One Tags'
                     }]
                 },
                 picture : {

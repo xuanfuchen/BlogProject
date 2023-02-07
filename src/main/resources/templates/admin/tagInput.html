@@ -17,7 +17,7 @@
 <!------ Content ------>
 <div class="m-padded-tb-large m-container-narrow" style="max-width: 40em !important;">
   <div class="ui container">
-    <form method="post" class="ui form" th:object="${tag}" th:action="*{id}==0 ? @{/admin/tagManage} : @{/admin/tagManage/{id} (id = *{id})}">
+    <form method="post" class="ui form" th:object="${tag}" th:action="*{id}==null ? @{/admin/tagManage} : @{/admin/tagManage/{id} (id = *{id})}">
       <input type="hidden" name="id" th:value="*{id}">
       <!-- article title -->
       <div class="required field">

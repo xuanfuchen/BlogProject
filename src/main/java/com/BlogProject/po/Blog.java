@@ -15,14 +15,19 @@ public class Blog {
     @GeneratedValue
     private Long id;
     private String title;
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String content;
     private String picture;
+    @Lob
     private String blogAbstract;
     private String flag;
-    private int view;
+    private Integer view;
     private boolean shareStatement;
     private boolean recommend;
     private boolean allowComment;
+
+    private boolean published;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,6 +39,9 @@ public class Blog {
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Tag> tags = new ArrayList<>();
+
+//    @Transient
+//    private String tagIds;
 
     @ManyToOne
     private User user;
@@ -85,11 +93,11 @@ public class Blog {
         this.flag = flag;
     }
 
-    public int getView() {
+    public Integer getView() {
         return view;
     }
 
-    public void setView(int view) {
+    public void setView(Integer view) {
         this.view = view;
     }
 
@@ -173,6 +181,14 @@ public class Blog {
         this.blogAbstract = blogAbstract;
     }
 
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
     @Override
     public String toString() {
         return "Blog{" +
@@ -186,6 +202,7 @@ public class Blog {
                 ", shareStatement=" + shareStatement +
                 ", recommend=" + recommend +
                 ", allowComment=" + allowComment +
+                ", published=" + published +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", type=" + type +

@@ -58,7 +58,13 @@
 
         <!-- add article button -->
         <div class="field right aligned" style="margin-bottom: 0.4em !important;">
-            <a href="" class="ui mini teal button m-padded-tb-medium"><h4>Post a blog</h4></a>
+            <a th:href="@{/admin/blogManage/blogInput}" class="ui mini teal button m-padded-tb-medium"><h4>Post a blog</h4></a>
+        </div>
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header"></div>
+            <p th:text="${message}"></p>
         </div>
 
         <!--use thymeleaf fragment & AJAX to update the list only-->
@@ -69,7 +75,8 @@
                     <th>Title</th>
                     <th>Type</th>
                     <th>Recommend</th>
-                    <th>Post Time</th>
+                    <th>Status</th>
+                    <th>Update Time</th>
                     <th>Operation</th>
                 </tr>
                 </thead>
@@ -77,13 +84,15 @@
                 <tbody>
                 <tr th:each="blog, iStat : ${page.content}">
                     <!-- title -->
-                    <td th:text="${blog.title}">Article Title</td>
+                    <td th:text="${blog.title}"></td>
                     <!-- type -->
-                    <td th:text="${blog.type.name}">Coding</td>
+                    <td th:text="${blog.type.name}"></td>
                     <!-- recommended -->
-                    <td th:text="${blog.recommend} ? 'Yes' : 'No'">Yes</td>
+                    <td th:text="${blog.recommend} ? 'Yes' : 'No'"></td>
+                    <!-- publish status -->
+                    <td th:text="${blog.published} ? 'Published' : 'Draft'"></td>
                     <!-- post time -->
-                    <td th:text="${blog.updateTime}">2022/09/30</td>
+                    <td th:text="${blog.updateTime}"></td>
                     <td>
                         <a href="" th:href="@{/admin/blogManage/{id}/edit (id=${blog.id})}" class="ui mini teal basic button">Edit</a>
                         <a href="" th:href="@{/admin/blogManage/{id}/delete (id=${blog.id})}" class="ui mini red button">Delete</a>
@@ -125,6 +134,12 @@
           $('.m-item').toggleClass('m-mobile-hide');
         });
         $('.ui.dropdown').dropdown();
+        $('.message .close')
+          .on('click', function(){
+            $(this)
+              .closest('.message')
+              .transition('fade');
+        });
 
         <!--    Use JS to send page number to the back-end    -->
         function page(obj) {
@@ -134,6 +149,7 @@
 
         <!--    reload the list section when click search button    -->
         $("#search-btn").click(function () {
+            $("[name='page']").val(0);
             loadList();
         });
 
