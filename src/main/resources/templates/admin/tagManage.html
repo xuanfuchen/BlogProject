@@ -36,15 +36,15 @@
             </thead>
             <!---- list body ---->
             <tbody>
-            <tr th:each="type,iStat : ${page.content}">
+            <tr th:each="tag,iStat : ${page.content}">
                 <!-- article number -->
                 <td th:text="${iStat.count}"></td>
                 <!-- title -->
-                <td th:text="${type.name}"></td>
+                <td th:text="${tag.name}"></td>
                 <!-- Operation -->
                 <td>
-                    <a href="" th:href="@{/admin/tagManage/{id}/edit (id=${type.id})}" class="ui mini teal basic button">Edit</a>
-                    <a href="" th:href="@{/admin/tagManage/{id}/delete (id=${type.id})}" class="ui mini red button">Delete</a>
+                    <a href="" th:href="@{/admin/tagManage/{id}/edit (id=${tag.id})}" class="ui mini teal basic button">Edit</a>
+                    <a href="" th:href="@{/admin/tagManage/{id}/delete (id=${tag.id})}" class="ui mini red button">Delete</a>
                 </td>
             </tr>
             </tbody>

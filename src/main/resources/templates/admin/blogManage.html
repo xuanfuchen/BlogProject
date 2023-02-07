@@ -9,7 +9,7 @@
 </head>
 
 <!--import navigation bar fragment-->
-<div th:replace="fragments/admin-nav-bar :: admin-nav"></div>
+<div th:replace="fragments/admin-nav-bar :: admin-nav(1)"></div>
 
 <body>
 <!-- secondary nav bar -->
@@ -25,7 +25,9 @@
 <div class="m-padded-tb-large">
     <div class="ui container">
         <!-- form for searching article -->
-        <form action="" method="post" class="ui segment form">
+        <!--    not using form and post here because submission is done by JavaScript below   -->
+        <div class="ui segment secondary form" style="margin-bottom: 0.5em !important;">
+            <input type="hidden" name="page">
             <div class="inline fields">
                 <div class="field">
                     <input type="text" name="title" placeholder="Title">
@@ -36,8 +38,7 @@
                         <i class="dropdown icon"></i>
                         <div class="default text">Select a Type</div>
                         <div class="menu">
-                            <div class="item" data-value="1">Coding</div>
-                            <div class="item" data-value="1">Thoughts</div>
+                            <div th:each="type : ${types}" class="item" th:data-value="${type.id}" th:text="${type.name}">Coding</div>
                         </div>
                     </div>
                 </div>
@@ -48,67 +49,67 @@
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui mini teal button">
+                    <button type="button" id="search-btn" class="ui mini teal button">
                         <h5>Search</h5>
                     </button>
                 </div>
             </div>
-        </form>
+        </div>
+
         <!-- add article button -->
-        <div class="field right aligned">
+        <div class="field right aligned" style="margin-bottom: 0.4em !important;">
             <a href="" class="ui mini teal button m-padded-tb-medium"><h4>Post a blog</h4></a>
         </div>
 
-        <table class="ui celled table">
-            <thead>
-            <tr>
-                <th>No.</th>
-                <th>Title</th>
-                <th>Type</th>
-                <th>Recommended</th>
-                <th>Post Time</th>
-                <th>Operation</th>
-            </tr>
-            </thead>
-            <!---- list body ---->
-            <tbody>
-            <tr>
-                <!-- article number -->
-                <td>1</td>
-                <!-- title -->
-                <td>Article Title</td>
-                <!-- type -->
-                <td>Coding</td>
-                <!-- recommended -->
-                <td>Yes</td>
-                <!-- post time -->
-                <td>2022/09/30</td>
-                <td>
-                    <a href="" class="ui mini teal basic button">Edit</a>
-                    <a href="" class="ui mini red button">Delete</a>
-                </td>
-            </tr>
-            </tbody>
+        <!--use thymeleaf fragment & AJAX to update the list only-->
+        <div id="table-container">
+            <table th:fragment="blogList" class="ui celled compact teal table">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Recommend</th>
+                    <th>Post Time</th>
+                    <th>Operation</th>
+                </tr>
+                </thead>
+                <!---- list body ---->
+                <tbody>
+                <tr th:each="blog, iStat : ${page.content}">
+                    <!-- title -->
+                    <td th:text="${blog.title}">Article Title</td>
+                    <!-- type -->
+                    <td th:text="${blog.type.name}">Coding</td>
+                    <!-- recommended -->
+                    <td th:text="${blog.recommend} ? 'Yes' : 'No'">Yes</td>
+                    <!-- post time -->
+                    <td th:text="${blog.updateTime}">2022/09/30</td>
+                    <td>
+                        <a href="" th:href="@{/admin/blogManage/{id}/edit (id=${blog.id})}" class="ui mini teal basic button">Edit</a>
+                        <a href="" th:href="@{/admin/blogManage/{id}/delete (id=${blog.id})}" class="ui mini red button">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
 
-            <tfoot>
-            <tr>
-                <th colspan="6">
-                    <div class="ui right floated pagination menu">
-                        <!-- page icons -->
-                        <!-- prev page -->
-                        <a href="" class="icon item">
-                            <i class="left chevron icon"></i>
-                        </a>
-                        <!-- next page -->
-                        <a href="" class="icon item">
-                            <i class="right chevron icon"></i>
-                        </a>
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
-
+                <tfoot>
+                <tr>
+                    <th colspan="6">
+                        <div class="ui pagination menu" th:if="${page.totalPages} > 1">
+                            <!-- page icons -->
+                            <!-- prev page -->
+                            <a onclick="page(this)" th:attr="data-page=${page.number} - 1" th:unless="${page.first}" class="icon item">
+                                <i class="left chevron icon"></i>
+                            </a>
+                            <!-- next page -->
+                            <a onclick="page(this)" th:attr="data-page=${page.number} + 1" th:unless="${page.last}" class="icon item">
+                                <i class="right chevron icon"></i>
+                            </a>
+                        </div>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -119,11 +120,32 @@
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 
 <!-- menu bottom click monitor in mobile devices -->
-<script>
+    <script>
         $('.menu.toggle').click(function () {
           $('.m-item').toggleClass('m-mobile-hide');
         });
         $('.ui.dropdown').dropdown();
+
+        <!--    Use JS to send page number to the back-end    -->
+        function page(obj) {
+            $("[name='page']").val($(obj).data("page"));
+            loadList();
+        };
+
+        <!--    reload the list section when click search button    -->
+        $("#search-btn").click(function () {
+            loadList();
+        });
+
+        <!--   Use AJAX for update the list section only    -->
+        function loadList(){
+            $("#table-container").load(/*[[@{/admin/blogManage/search}]]*/"/admin/blogManage/search",{
+                title : $("[name='title']").val(),
+                type : $("[name='type']").val(),
+                recommend : $("[name='recommend']").prop('checked'),
+                page : $("[name='page']").val()
+            });
+        }
     </script>
 </body>
 

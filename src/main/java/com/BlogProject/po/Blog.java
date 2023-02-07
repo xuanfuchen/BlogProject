@@ -22,7 +22,7 @@ public class Blog {
     private int view;
     private boolean shareStatement;
     private boolean recommend;
-    private boolean commentSection;
+    private boolean allowComment;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;
     @Temporal(TemporalType.TIMESTAMP)
@@ -109,12 +109,12 @@ public class Blog {
         this.recommend = recommend;
     }
 
-    public boolean isCommentSection() {
-        return commentSection;
+    public boolean isAllowComment() {
+        return allowComment;
     }
 
-    public void setCommentSection(boolean commentSection) {
-        this.commentSection = commentSection;
+    public void setAllowComment(boolean allowComment) {
+        this.allowComment = allowComment;
     }
 
     public Date getCreateTime() {
@@ -185,7 +185,7 @@ public class Blog {
                 ", view=" + view +
                 ", shareStatement=" + shareStatement +
                 ", recommend=" + recommend +
-                ", commentSection=" + commentSection +
+                ", allowComment=" + allowComment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", type=" + type +
