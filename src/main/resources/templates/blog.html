@@ -80,58 +80,41 @@
             <h3 class="ui dividing header">Comments</h3>
 
             <!--    list    -->
-            <div class="comment">
+            <div class="comment" th:each="comment : ${comments}">
               <a class="avatar">
-                <img src="https://pic.onlinewebfonts.com/svg/img_561543.png">
+                <img th:src="@{${comment.avatar}}">
               </a>
               <div class="content">
-                <a class="author">Matt</a>
+                <a class="author" th:text="${comment.nickname}">Nickname</a>
                 <div class="metadata">
-                  <span class="date">Yesterday at 12:30AM</span>
+                  <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}">Post Time</span>
                 </div>
-                <div class="text">
-                  <p>This has been very useful for my research. Thanks as well!</p>
-                </div>
+                <div class="text" th:text="${comment.content}">Content</div>
                 <div class="actions">
-                  <a class="reply" data-commentid="1" data-commentnickname="Matt" onclick="reply(this)">Reply</a>
+                  <a class="reply" th:attr="data-commentid=${comment.id}, data-commentnickname=${comment.nickname}" onclick="reply(this)">Reply</a>
                 </div>
               </div>
-              <div class="comments">
-                <div class="comment">
+              <!--    secondary comments (comments of comment)    -->
+              <div class="comments" th:if="${#arrays.length(comment.replyComments)>0}">
+                <div class="comment" th:each="reply : ${comment.replyComments}">
                   <a class="avatar">
-                    <img src="https://pic.onlinewebfonts.com/svg/img_561543.png">
+                    <img th:src="@{${reply.avatar}}">
                   </a>
                   <div class="content">
-                    <a class="author">Jenny Hess</a>
+                    <a class="author">
+                      <span th:text="${reply.nickname}">Replier</span>&nbsp;<span th:text="|@${reply.parentComment.nickname}|" class="m-teal">Repliee</span>
+                    </a>
                     <div class="metadata">
-                      <span class="date">Just now</span>
+                      <span class="date" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}">Post Time</span>
                     </div>
-                    <div class="text">
-                      Elliot you are always so right :)
-                    </div>
+                    <div class="text" th:text="${reply.content}">Content</div>
                     <div class="actions">
-                      <a class="reply">Reply</a>
+                      <a class="reply" th:attr="data-commentid=${reply.id}, data-commentnickname=${reply.nickname}" onclick="reply(this)">Reply</a>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="comment">
-              <a class="avatar">
-                <img src="https://pic.onlinewebfonts.com/svg/img_561543.png">
-              </a>
-              <div class="content">
-                <a class="author">Joe Henderson</a>
-                <div class="metadata">
-                  <span class="date">5 days ago</span>
-                </div>
-                <div class="text">
-                  Dude, this is awesome. Thanks so much
-                </div>
-                <div class="actions">
-                  <a class="reply">Reply</a>
-                </div>
-              </div>
+
             </div>
 
           </div>
@@ -174,7 +157,7 @@
 <scrip src="@{/lib/prism/prism.js}"></scrip>
 
 
-<script>
+<script th:inline="javascript">
         <!-- menu bottom click monitor in mobile devices -->
         $('.menu.toggle').click(function () {
           $('.m-item').toggleClass('m-mobile-hide');
@@ -207,10 +190,15 @@
             }
         });
 
+        $(function () {
+          $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"");
+        });
+
         $('#commentpost-btn').click(function () {
           var valid = $('.ui.form').form('validate form');
           if(valid){
             console.log('Valid form');
+            postData();
           } else {
             console.log('Invalid form');
           }
@@ -224,7 +212,6 @@
             "email"   : $("[name='email']").val(),
             "content" : $("[name='content']").val()
           },function (responseTxt, statusTxt, xhr) {
-            $(window).scrollTo($('#comment-container'),500);
             clearContent();
           });
         }
@@ -232,13 +219,13 @@
         function clearContent(){
           $("[name='content']").val('');
           $("[name='parentComment.id']").val(-1);
-          $("[name='content']").attr("placeholder", "Comment here..."+commentNickname).focus();
+          $("[name='content']").attr("placeholder", "Comment here...").focus();
         }
 
-        //AJAX for reply feature
+        //AJAX for reply feature, after clicking the reply button:
         //add an "@Username" as Placeholder of the text area
         //set commentId of the comment reply to as it's parentId
-        //scroll to the comment posting form after clicking the reply button
+        //scroll to the comment posting form
         function reply(obj){
           var commentId = $(obj).data('commentid');
           var commentNickname = $(obj).data('commentnickname');
