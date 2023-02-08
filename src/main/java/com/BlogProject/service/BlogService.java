@@ -11,6 +11,8 @@ public interface BlogService {
 
     Blog getBlog(String name);
 
+    Blog getBlogHTML(Long id);
+
     Page<Blog> listBlog(Pageable pageable, Blog blog);
 
     Page<Blog> listBlog(Pageable pageable);

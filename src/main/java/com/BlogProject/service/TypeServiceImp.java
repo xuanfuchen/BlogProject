@@ -33,6 +33,11 @@ public class TypeServiceImp implements TypeService{
     }
 
     @Override
+    public Type getType(Type type) {
+        return typeRepository.getReferenceById(type.getId());
+    }
+
+    @Override
     public Type getTypeByName(String name){
         return typeRepository.findByName(name);
     }

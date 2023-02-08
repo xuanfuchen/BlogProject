@@ -71,7 +71,7 @@ public class BlogController {
     @PostMapping("/blogManage")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session){
         blog.setUser((User)session.getAttribute("user"));
-        blog.setType(typeService.getType(blog.getType().getId()));
+        blog.setType(typeService.getType(blog.getType()));
         blog.setTags(tagService.getTags(blog.getTags()));
         if(blog.getId() == null){
             blogService.saveBlog(blog);

@@ -4,7 +4,9 @@ import com.BlogProject.dao.BlogRepository;
 import com.BlogProject.exception.NotFoundException;
 import com.BlogProject.po.Blog;
 import com.BlogProject.po.Type;
+import com.BlogProject.util.MarkdownUtils;
 import com.BlogProject.util.MyBeanUtils;
+import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.hibernate.annotations.NotFound;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,27 @@ public class BlogServiceImp implements BlogService{
     @Override
     public Blog getBlog(String name) {
         return null;
+    }
+
+    /**
+     * find blog by ID and convert the content from Markdown to HTML
+     * @param id
+     * @return Blog with HTML content
+     */
+
+    @Override
+    public Blog getBlogHTML(Long id) {
+        Blog blog = blogRepository.getReferenceById(id);
+        if(blog == null){
+            throw new NotFoundException("Blog does not exist");
+        }
+        Blog blogCopy = new Blog();
+        //make a deep copy to the blog since JPA might auto save the changed content to the database
+        BeanUtils.copyProperties(blog, blogCopy);
+        String content = blogCopy.getContent();
+        content = MarkdownUtils.markdownToHtmlExtensions(content);
+        blogCopy.setContent(content);
+        return blogCopy;
     }
 
     /**

@@ -11,6 +11,8 @@ public interface TypeService {
 
     Type getType(Long id);
 
+    Type getType(Type type);
+
     Type getTypeByName(String name);
 
     Page<Type> listType(Pageable pageable);

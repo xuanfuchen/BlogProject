@@ -10,7 +10,7 @@
 </head>
 
 <!--import navigation bar fragment-->
-<div th:replace="fragments/guest-nav-bar :: guest-nav"></div>
+<div th:replace="fragments/guest-nav-bar :: guest-nav(10)"></div>
 
 <body>
 <!------ Content ------>
@@ -22,48 +22,42 @@
         <div class="item">
           <!-- author -->
           <div class="content">
-            <p calss="header">Xuanfu Chen</p>
+            <p calss="header" th:text="${blog.user.nickname}">Xuanfu Chen</p>
           </div>
         </div>
         <!-- upload time -->
         <div class="item">
-          <i class="calendar icon"></i> 2023/1/27
+          <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">Update date</span>
         </div>
         <!-- view count -->
         <div class="item">
-          <i class="eye icon"></i> 215
+          <i class="eye icon"></i><span th:text="|&nbsp;${blog.view}|"></span>
         </div>
       </div>
     </div>
 
     <!-- image -->
     <div class="ui attached segment">
-      <img src="https://www.rokill.co.uk/wp-content/uploads/2016/02/Placeholder-800x450.png" alt="" class="ui fluid rounded image">
+      <img th:src="@{${blog.picture}}" alt="" class="ui fluid rounded image">
     </div>
 
-    <!-- article content -->
+    <!-- content -->
     <div class="ui attached padded segment">
       <!-- article title -->
-      <h2 class="ui header center aligned">Title</h2>
-      <!-- article -->
-      <div id="content" class="m-padded-lr m-padded-tb-small">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Auctor urna nunc id cursus metus. Morbi non arcu risus quis varius quam quisque id. Purus sit amet luctus venenatis lectus magna fringilla urna porttitor. Arcu ac tortor dignissim convallis. Duis convallis convallis tellus id interdum velit. Euismod in pellentesque massa placerat. Suspendisse in est ante in nibh mauris cursus mattis. Lectus quam id leo in vitae turpis massa sed elementum. Fames ac turpis egestas maecenas pharetra convallis posuere. Metus dictum at tempor commodo ullamcorper a lacus. Habitant morbi tristique senectus et netus et. Eget nulla facilisi etiam dignissim diam quis enim. Eu ultrices vitae auctor eu. At erat pellentesque adipiscing commodo elit at imperdiet dui accumsan.</p>
-        <p>Quam vulputate dignissim suspendisse in est ante in nibh. Nisi lacus sed viverra tellus in hac habitasse platea. Consequat mauris nunc congue nisi vitae suscipit tellus mauris a. Neque laoreet suspendisse interdum consectetur libero id faucibus nisl tincidunt. Faucibus et molestie ac feugiat sed. Consectetur libero id faucibus nisl tincidunt eget nullam. In nisl nisi scelerisque eu ultrices vitae auctor eu. Consequat ac felis donec et odio pellentesque diam volutpat commodo. Faucibus purus in massa tempor nec feugiat nisl. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non. Lectus nulla at volutpat diam ut venenatis. Nunc vel risus commodo viverra maecenas accumsan. Mauris cursus mattis molestie a iaculis at. Elementum sagittis vitae et leo duis ut.</p>
-        <p>Lorem ipsum是指一篇用于网页设计、排印、布局和印刷的伪拉丁文章，其用于代替英语去强调设计元素而不是内容。它也被称为占位符文（或填充文）。它是一个很便利的模板工具。它用于帮助编排文章或演示文稿的视觉元素，如排印，字体，或布局。Lorem ipsum 大多是由古典作家和哲学家西塞罗创作的拉丁文的一部分。它的单词和字母由于添加或去移除而被改变了，所以故意使其内容荒谬；它不是真实的，正确的，再也不是可理解的拉丁语。虽然lorem ipsum看起来仍像古典拉丁语，但实际上它没有任何意义。因为西塞罗的文本不包含K，W，Z 这几个有异于拉丁文的字母，所以这几个字母和其他一些字母常常被随机插入去模拟欧洲语言的排印样式，这些字在原文中其实并没有。</p>
-      </div>
-
+      <h2 class="ui header center aligned" th:text="${blog.title}">Title</h2>
+      <!-- article content -->
+      <div id="content" th:utext="${blog.content}" class="m-padded-lr m-padded-tb-small">Content</div>
       <!-- tags -->
       <div class="m-padded-lr-small m-padded-tb-medium">
-        <a href="" class="m-padded-lr-tiny"><div class="ui basic teal left pointing label m-margin-tb-tiny m-padded-tb-small">Java</div></a>
-        <a href="" class="m-padded-lr-tiny"><div class="ui basic teal left pointing label m-margin-tb-tiny m-padded-tb-small">Java</div></a>
+        <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">Tag</div>
       </div>
     </div>
 
     <!-- blog info -->
     <div class="ui attached positive message">
       <ui class="list">
-        <li>Author: Xuanfu Chen</li>
-        <li>Post at: 2023-01-25 11:57</li>
+        <li>Author: <span th:text="${blog.user.nickname}"></span><a th:href="@{/about}"> (About Me) </a></li>
+        <li>Post at: <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}"></span></li>
         <li><a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">Copyright: Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)</a></li>
       </ui>
     </div>
