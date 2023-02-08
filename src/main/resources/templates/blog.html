@@ -58,24 +58,88 @@
       <ui class="list">
         <li>Author: <span th:text="${blog.user.nickname}"></span><a th:href="@{/about}"> (About Me) </a></li>
         <li>Post at: <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}"></span></li>
-        <li><a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">Copyright: Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)</a></li>
+        <li th:if="${blog.shareStatement}"><a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">Copyright: Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)</a></li>
       </ui>
     </div>
 
+    <div th:unless="${blog.allowComment}" class="ui bottom attached segment teal">
+      <div class="">
+        <div class="ui container m-padded-tb-medium" style="max-width: 100%;">
+          <h3 class="ui header center aligned">Comment Section has been Closed by Admin</h3>
+        </div>
+      </div>
+    </div>
+
     <!-- comment -->
-    <div class="ui bottom attached segment">
-      <div id="comment-container"  class="ui teal segment">
+    <div th:if="${blog.allowComment}" class="ui bottom attached segment">
+      <div class="ui teal segment" id="comment-container">
         <!-- comment list -->
+        <!--    header    -->
         <div th:fragment="commentList">
           <div class="ui threaded comments" style="max-width: 100%;">
             <h3 class="ui dividing header">Comments</h3>
+
+            <!--    list    -->
+            <div class="comment">
+              <a class="avatar">
+                <img src="https://pic.onlinewebfonts.com/svg/img_561543.png">
+              </a>
+              <div class="content">
+                <a class="author">Matt</a>
+                <div class="metadata">
+                  <span class="date">Yesterday at 12:30AM</span>
+                </div>
+                <div class="text">
+                  <p>This has been very useful for my research. Thanks as well!</p>
+                </div>
+                <div class="actions">
+                  <a class="reply" data-commentid="1" data-commentnickname="Matt" onclick="reply(this)">Reply</a>
+                </div>
+              </div>
+              <div class="comments">
+                <div class="comment">
+                  <a class="avatar">
+                    <img src="https://pic.onlinewebfonts.com/svg/img_561543.png">
+                  </a>
+                  <div class="content">
+                    <a class="author">Jenny Hess</a>
+                    <div class="metadata">
+                      <span class="date">Just now</span>
+                    </div>
+                    <div class="text">
+                      Elliot you are always so right :)
+                    </div>
+                    <div class="actions">
+                      <a class="reply">Reply</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="comment">
+              <a class="avatar">
+                <img src="https://pic.onlinewebfonts.com/svg/img_561543.png">
+              </a>
+              <div class="content">
+                <a class="author">Joe Henderson</a>
+                <div class="metadata">
+                  <span class="date">5 days ago</span>
+                </div>
+                <div class="text">
+                  Dude, this is awesome. Thanks so much
+                </div>
+                <div class="actions">
+                  <a class="reply">Reply</a>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
       </div>
       <!-- comment posting -->
       <div id="comment-form" class="ui form">
-        <input type="hidden" name="blog.id">
+        <input type="hidden" name="blog.id" th:value="${blog.id}">
         <input type="hidden" name="parentComment.id" value="-1">
         <div class="field">
           <textarea name="content" placeholder="Comment here..."></textarea>
@@ -94,7 +158,7 @@
             </div>
           </div>
           <div class="field  m-margin-bottom-small m-mobile-wide">
-            <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>Post</button>
+            <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>Post Comment</button>
           </div>
         </div>
       </div>
@@ -109,12 +173,82 @@
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
 <scrip src="@{/lib/prism/prism.js}"></scrip>
 
-<!-- menu bottom click monitor in mobile devices -->
+
 <script>
+        <!-- menu bottom click monitor in mobile devices -->
         $('.menu.toggle').click(function () {
           $('.m-item').toggleClass('m-mobile-hide');
         });
-      </script>
+
+        // Pop error message(s) if there's empty field(s)
+        $('.ui.form').form({
+            fields : {
+                content : {
+                    identifier: 'content',
+                    rules: [{
+                        type : 'empty',
+                        prompt: 'Content: Please Enter a Content'
+                    }]
+                },
+                nickname : {
+                    identifier: 'nickname',
+                    rules: [{
+                        type : 'empty',
+                        prompt: 'Nickname: Please Enter a Nickname'
+                    }]
+                },
+                email: {
+                    identifier: 'email',
+                    rules: [{
+                        type : 'empty',
+                        prompt: 'Email: Please Enter a Valid Email'
+                    }]
+                }
+            }
+        });
+
+        $('#commentpost-btn').click(function () {
+          var valid = $('.ui.form').form('validate form');
+          if(valid){
+            console.log('Valid form');
+          } else {
+            console.log('Invalid form');
+          }
+        });
+
+        function postData() {
+          $("#comment-container").load(/*[[@{/comments}]]*/"",{
+            "parentComment.id" : $("[name='parentComment.id']").val(),
+            "blog.id" : $("[name='blog.id']").val(),
+            "nickname": $("[name='nickname']").val(),
+            "email"   : $("[name='email']").val(),
+            "content" : $("[name='content']").val()
+          },function (responseTxt, statusTxt, xhr) {
+            $(window).scrollTo($('#comment-container'),500);
+            clearContent();
+          });
+        }
+
+        function clearContent(){
+          $("[name='content']").val('');
+          $("[name='parentComment.id']").val(-1);
+          $("[name='content']").attr("placeholder", "Comment here..."+commentNickname).focus();
+        }
+
+        //AJAX for reply feature
+        //add an "@Username" as Placeholder of the text area
+        //set commentId of the comment reply to as it's parentId
+        //scroll to the comment posting form after clicking the reply button
+        function reply(obj){
+          var commentId = $(obj).data('commentid');
+          var commentNickname = $(obj).data('commentnickname');
+          $("[name='content']").attr("placeholder", "@"+commentNickname).focus();
+          $("[name='parentComment.id']").val(commentId)
+          $(window).scrollTo($('#comment-form'),500);
+        }
+
+
+</script>
 </body>
 
 <!--import footer fragment-->
