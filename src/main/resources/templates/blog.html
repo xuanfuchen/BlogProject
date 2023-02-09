@@ -44,12 +44,12 @@
     <!-- content -->
     <div class="ui attached padded segment">
       <!-- article title -->
-      <h2 class="ui header center aligned" th:text="${blog.title}">Title</h2>
+      <h1 class="ui header center aligned" th:text="${blog.title}">Title</h1>
       <!-- article content -->
       <div id="content" th:utext="${blog.content}" class="m-padded-lr m-padded-tb-small">Content</div>
       <!-- tags -->
       <div class="m-padded-lr-small m-padded-tb-medium">
-        <div class="ui basic teal left pointing label" th:each="tag : ${blog.tags}" th:text="${tag.name}">Tag</div>
+        <div class="ui small teal tag label" th:each="tag : ${blog.tags}" th:text="${tag.name}">Tag</div>
       </div>
     </div>
 
@@ -57,7 +57,8 @@
     <div class="ui attached positive message">
       <ui class="list">
         <li>Author: <span th:text="${blog.user.nickname}"></span><a th:href="@{/about}"> (About Me) </a></li>
-        <li>Post at: <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}"></span></li>
+        <li>Post at: <span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd HH:mm')}"></span></li>
+        <li>Last Update: <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}"></span></li>
         <li th:if="${blog.shareStatement}"><a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">Copyright: Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)</a></li>
       </ui>
     </div>
@@ -97,7 +98,7 @@
                 </div>
               </div>
               <!--    secondary comments (comments of comment)    -->
-              <div class="comments" th:if="${#arrays.length(comment.replyComments)>0}">
+              <div class="comments" th:if="${#arrays.length(comment.replyComments) > 0}">
                 <div class="comment" th:each="reply : ${comment.replyComments}">
                   <a class="avatar">
                     <img th:src="@{${reply.avatar}}">
@@ -125,6 +126,7 @@
           </div>
         </div>
       </div>
+
       <!-- comment posting -->
       <div id="comment-form" class="ui form">
         <input type="hidden" name="blog.id" th:value="${blog.id}">

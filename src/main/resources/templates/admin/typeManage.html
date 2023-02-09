@@ -31,6 +31,7 @@
       <tr>
         <th>No.</th>
         <th>Type Name</th>
+        <th>Blog count</th>
         <th>Operation</th>
       </tr>
       </thead>
@@ -41,6 +42,8 @@
         <td th:text="${iStat.count}"></td>
         <!-- title -->
         <td th:text="${type.name}"></td>
+        <!-- blogs under this type -->
+        <td th:text="${type.blogs.size}"></td>
         <!-- Operation -->
         <td>
           <a href="" th:href="@{/admin/typeManage/{id}/edit (id=${type.id})}" class="ui mini teal basic button">Edit</a>

@@ -13,82 +13,86 @@
 
 <body>
 <!------ Content ------>
-<div  class="m-padded-tb-large animated fadeIn">
+<div  class="m-padded-tb-large m-container-narrow">
   <div class="ui container">
     <!--header-->
     <div class="ui top attached segment">
       <div class="ui middle aligned two column grid">
         <div class="column">
-          <h3 class="ui teal header">Tags</h3>
+          <h2 class="ui teal header">Tags</h2>
         </div>
         <div class="right aligned column">
-          <h3 class="ui orange header m-inline-block">2&nbsp;</h3> Tags In Total
+          <h3 class="ui orange header m-inline-block" th:text="|${#arrays.length(tags)}|"> </h3> Tags In Total
         </div>
+      </div>
       </div>
     </div>
 
-    <div class="ui attached segment m-padded-tb-large">
+    <div class="ui bottom attached segment m-padded-tb-big">
 
-      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
-        Java
+      <a th:each="tag : ${tags}"
+         th:href="@{/tags/{id} (id = ${tag.id})}"
+         class="ui tag large label m-margin-tb-tiny m-margin-lr"
+         th:classappend="${tag.id == activeTagId} ? 'teal'">
+        <span th:text="${tag.name}"></span>
         <!-- articel number with this tag -->
-        <div class="detail">10</div>
-      </a>
-      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
-        JavaScript
-        <!-- articel number with this tag -->
-        <div class="detail">3</div>
-      </a>
-      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
-        Web
-        <!-- articel number with this tag -->
-        <div class="detail">2</div>
-      </a>
-      <a href="" class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-medium">
-        Python
-        <!-- articel number with this tag -->
-        <div class="detail">6</div>
+        <div class="detail" th:text="${#arrays.length(tag.blogs)}">10</div>
       </a>
 
     </div>
 
-    <div class="ui top attached teal segment">
+    <div class="ui rounded teal segment">
       <!-- article block -->
-      <div class="ui padded vertical segment">
+      <div class="ui padded vertical segment" th:each="blog : ${page.content}">
         <div class="ui mobile reversed stackable grid">
-          <div class="eleven wide column">
+          <div class="eleven wide column middle aligned">
             <!-- Article Title -->
-            <h3 class="ui header" ><a href="" class="blackLink">Article Title Here</a></h3>
+            <h3 class="ui header" ><a th:href="@{/blog/{id} (id=${blog.id})}" class="blackLink" th:text="${blog.title}">Article Title Here</a></h3>
             <!-- Article abstract -->
-            <p>Article abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <div class="ui grid">
-              <div class="eleven wide column">
-                <div class="ui horizontal link list">
-                  <div class="item">
-                    <!-- author -->
-                    <div class="content">
-                      <p>Xuanfu Chen</p>
+            <p th:text="|${blog.blogAbstract} ...|">blog abstract</p>
+            <div class="row">
+              <div class="ui grid">
+                <div class="column">
+                  <div class="ui horizontal link list">
+                    <div class="item">
+                      <!-- author -->
+                      <div class="content">
+                        <p th:text="${blog.user.nickname}">Xuanfu Chen</p>
+                      </div>
                     </div>
-                  </div>
-                  <!-- upload time -->
-                  <div class="item">
-                    <i class="calendar icon"></i> 2023/1/27
-                  </div>
-                  <!-- view count -->
-                  <div class="item">
-                    <i class="eye icon"></i> 215
+                    <!-- upload time -->
+                    <div class="item">
+                      <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd')}">Update date</span>
+                    </div>
+                    <!-- view count -->
+                    <div class="item">
+                      <i class="eye icon"></i><span th:text="${blog.view}"></span>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="right aligned five wide column">
-                <a href="#" target="_blank" class="ui yellow basic label m-padded-small">Coding</a>
+            </div>
+            <div class="row">
+              <div class="ui grid">
+                <div class="eleven wide column">
+                  <a class="ui small basic left pointing label"
+                     th:each="tag : ${blog.tags}"
+                     th:href="@{/tags/{id} (id = ${tag.id})}"
+                     th:classappend="${tag.id == activeTagId} ? 'teal'">
+                    <span th:text="${tag.name}"></span>
+                  </a>
+                </div>
+
+                <div class="right aligned five wide column">
+                  <a th:href="@{/types/{id} (id = ${blog.type.id})}" target="_blank" class="ui orange basic label m-padded-small" th:text="${blog.type.name}">Coding</a>
+                </div>
               </div>
             </div>
           </div>
           <!-- image -->
-          <div class="five wide column">
-            <a href="#" target="_blank">
-              <img src="https://alaskabirchsyrup.com/wp-content/uploads/2017/08/placeholder-800x450.jpg" class="ui rounded image">
+          <div class="five wide column middle aligned">
+            <a href="#" th:href="@{/blog/{id} (id=${blog.id})}" target="_blank">
+              <img th:src="@{${blog.picture}}" class="ui rounded image" height="100%">
             </a>
           </div>
         </div>

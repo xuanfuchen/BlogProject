@@ -41,7 +41,7 @@ public class BlogController {
                              Pageable pageable){
         //we need all types and a page of blogs for one blogManage page
         model.addAttribute("types", typeService.listAllType());
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+        model.addAttribute("page", blogService.listBlog(pageable));
         return "/admin/blogManage";
     }
 

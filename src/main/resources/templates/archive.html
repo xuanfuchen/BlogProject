@@ -13,72 +13,37 @@
 
 <body>
 <!------ Content ------>
-<div  class="m-padded-tb-large animated fadeIn">
+<div  class="m-padded-tb-large m-container-narrow">
   <div class="ui container">
     <!--header-->
-    <div class="ui top attached segment">
+    <div class="ui rounded segment">
       <div class="ui middle aligned two column grid">
         <div class="column">
           <h2 class="ui header">Archive</h2>
         </div>
         <div class="right aligned column">
-          <h3 class="ui orange header m-inline-block">2&nbsp;</h3> Articles In Total
+          <h3 class="ui orange header m-inline-block" th:utext="${blogsCount}">2&nbsp;</h3> Blogs In Total
         </div>
       </div>
     </div>
 
-    <!-- year list -->
-    <h1 class="ui center aligned header">2023</h1>
-    <div class="ui fluid vertical menu m-padded-lr-small">
+      <th:block th:each="item : ${archiveMap}">
+          <!-- year list -->
+          <h1 class="ui center aligned header" th:utext="${item.key}">2023</h1>
+          <div class="ui fluid vertical menu m-padded-lr-tiny">
 
-      <a href="" class="item m-padded-tb-medium">
+              <a th:each="blog : ${item.value}"
+                 th:href="@{/blog/{id} (id = ${blog.id})}"
+                 class="item m-padded-tb-medium">
                 <span>
-                    <i class="teal circle icon"></i>Article Title
+                    <i class="teal circle icon"></i><span th:utext="${blog.title}">Blog Title</span>
                 </span>
-        <div class="class ui right aligned teal basic label">Sep 17</div>
-      </a>
-
-      <a href="" class="item m-padded-tb-medium">
-                <span>
-                    <i class="teal circle icon"></i>Article Title
-                </span>
-        <div class="class ui right aligned teal basic label">Sep 17</div>
-      </a>
-
-      <a href="" class="item m-padded-tb-medium">
-                <span>
-                    <i class="teal circle icon"></i>Article Title
-                </span>
-        <div class="class ui right aligned teal basic label">Sep 17</div>
-      </a>
-    </div>
-
-    <!-- year list -->
-    <h1 class="ui center aligned header">2022</h1>
-    <div class="ui fluid vertical menu m-padded-lr-small">
-
-      <a href="" class="item m-padded-tb-medium">
-                <span>
-                    <i class="teal circle icon"></i>Article Title
-                </span>
-        <div class="class ui right aligned teal basic label">Sep 17</div>
-      </a>
-
-      <a href="" class="item m-padded-tb-medium">
-                <span>
-                    <i class="teal circle icon"></i>Article Title
-                </span>
-        <div class="class ui right aligned teal basic label">Sep 17</div>
-      </a>
-
-      <a href="" class="item m-padded-tb-medium">
-                <span>
-                    <i class="teal circle icon"></i>Article Title
-                </span>
-        <div class="class ui right aligned teal basic label">Sep 17</div>
-      </a>
-    </div>
-
+                  <div class="class ui right aligned teal basic label"
+                       th:utext="${#dates.format(blog.updateTime, 'MMM dd')}">Date - MMMdd
+                  </div>
+              </a>
+          </div>
+      </th:block>
   </div>
 </div>
 

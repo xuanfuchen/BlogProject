@@ -6,8 +6,6 @@ import com.BlogProject.po.Blog;
 import com.BlogProject.po.Type;
 import com.BlogProject.util.MarkdownUtils;
 import com.BlogProject.util.MyBeanUtils;
-import com.fasterxml.jackson.databind.util.BeanUtil;
-import org.hibernate.annotations.NotFound;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,14 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class BlogServiceImp implements BlogService{
@@ -67,13 +60,43 @@ public class BlogServiceImp implements BlogService{
     }
 
     /**
-     * This method serves the searching feature in
+     * for the search feature in blog admin page
+     * @param pageable
+     * @param blog
+     * @return A page of blogs that meets the required name/type/recommend/draft status
+     */
+    @Override
+    public Page<Blog> listBlog(Pageable pageable, Blog blog) {
+        return blogRepository.findAll(new Specification<Blog>() { //don't really know how it works
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                if(blog.getTitle() != null && !blog.getTitle().equals("")){
+                    predicates.add(cb.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
+                }
+                if(blog.getType() != null && blog.getType().getId() != null){
+                    predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getType().getId()));
+                }
+                if(blog.isRecommend()){
+                    predicates.add(cb.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
+                }
+                if(!blog.isPublished()){
+                    predicates.add(cb.equal(root.<Boolean>get("published"), blog.isPublished()));
+                }
+                query.where(predicates.toArray(new Predicate[predicates.size()]));
+                return null;
+            }
+        }, pageable);
+    }
+
+    /**
+     * This method can find Published blogs that meets the required name/type/recommend
      * @param pageable
      * @param blog
      * @return A page of blogs that meets the required name/type/recommend status
      */
     @Override
-    public Page<Blog> listBlog(Pageable pageable, Blog blog) {
+    public Page<Blog> pagePublishedBlogs(Pageable pageable, Blog blog) {
         return blogRepository.findAll(new Specification<Blog>() {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -87,6 +110,33 @@ public class BlogServiceImp implements BlogService{
                 if(blog.isRecommend()){
                     predicates.add(cb.equal(root.<Boolean>get("recommend"), blog.isRecommend()));
                 }
+                if(blog.isPublished()){
+                    predicates.add(cb.equal(root.<Boolean>get("published"), blog.isPublished()));
+                }
+                query.where(predicates.toArray(new Predicate[predicates.size()]));
+                return null;
+            }
+        }, pageable);
+    }
+
+    /**
+     * Find all blogs that have tag with tagId
+     * @param pageable
+     * @param tagId
+     * @return a page object that contains blogs with blog.tag.id = tagId
+     */
+    @Override
+    public Page<Blog> pagePublishedBlogsByTagId(Pageable pageable, Long tagId) {
+        return blogRepository.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                //join blog and tags table
+                Join join = root.join("tags");
+                //query where join.id = tagId
+                predicates.add(cb.equal(join.get("id"), tagId));
+                //query where join.published = true
+                predicates.add(cb.equal(root.<Boolean>get("published"), true));
                 query.where(predicates.toArray(new Predicate[predicates.size()]));
                 return null;
             }
@@ -106,7 +156,33 @@ public class BlogServiceImp implements BlogService{
 
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
-        return blogRepository.findByQuery(query, pageable);
+        return blogRepository.findPublishedByQuery(query, pageable);
+    }
+
+    /**
+     *
+     * @return a map contains years as key and value as blogs posted in that year <K, V> -> <year, List<Blog>>
+     */
+    @Override
+    public Map<Integer, List<Blog>> archiveBlogs() {
+        List<Integer> years = blogRepository.findDistinctYears();
+        //Use LinkedHashMap because we want ordered key
+        Map<Integer, List<Blog>> map = new LinkedHashMap<>();
+        for(Integer year : years){
+            List<Blog> listBlog = new ArrayList<>();
+            listBlog = blogRepository.findBlogsByYear(year);
+            map.put(year, listBlog);
+        }
+        return map;
+    }
+
+    /**
+     * @return count of all published blogs
+     */
+
+    @Override
+    public Integer countAllPublishedBlogs() {
+        return blogRepository.countPublishedBlogs();
     }
 
     @Transactional

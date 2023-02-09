@@ -31,6 +31,7 @@
             <tr>
                 <th>No.</th>
                 <th>Tag Name</th>
+                <th>Blog Count</th>
                 <th>Operation</th>
             </tr>
             </thead>
@@ -41,6 +42,8 @@
                 <td th:text="${iStat.count}"></td>
                 <!-- title -->
                 <td th:text="${tag.name}"></td>
+                <!-- blogs under this type -->
+                <td th:text="${tag.blogs.size}"></td>
                 <!-- Operation -->
                 <td>
                     <a href="" th:href="@{/admin/tagManage/{id}/edit (id=${tag.id})}" class="ui mini teal basic button">Edit</a>

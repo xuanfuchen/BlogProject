@@ -22,10 +22,10 @@
                 <div class="ui top attached segment">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <h3 class="ui teal header">Blog</h3>
+                            <h2 class="ui teal header">Blogs</h2>
                         </div>
                         <div class="right aligned column">
-                            <h4 class="ui orange header m-inline-block" th:text="${page.totalElements}">2&nbsp;</h4> Blogs In Total
+                            <h3 class="ui orange header m-inline-block" th:text="${page.totalElements}">2&nbsp;</h3> Blogs In Total
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <!-- article block -->
                     <div class="ui padded vertical segment" th:each="blog : ${page.content}">
                         <div class="ui mobile reversed stackable grid">
-                            <div class="eleven wide column">
+                            <div class="eleven wide column middle aligned">
                                 <!-- Article Title -->
                                 <h3 class="ui header" ><a th:href="@{/blog/{id} (id=${blog.id})}" class="blackLink" th:text="${blog.title}">Article Title Here</a></h3>
                                 <!-- Article abstract -->
@@ -65,9 +65,9 @@
                                 </div>
                             </div>
                             <!-- image -->
-                            <div class="five wide column">
+                            <div class="five wide column middle aligned">
                                 <a href="#" th:href="@{/blog/{id} (id=${blog.id})}" target="_blank">
-                                    <img th:src="@{${blog.picture}}" class="ui rounded image">
+                                    <img th:src="@{${blog.picture}}" class="ui rounded image" height="100%">
                                 </a>
                             </div>
                         </div>
@@ -136,8 +136,9 @@
                     </div>
                     <!-- tags list -->
                     <div class="ui teal segment">
-                        <a href="" th:each="tag : ${tags}"
-                           class="ui teal basic left pointing label m-margin-tb-tiny m-padded-tb-small">
+                        <a th:each="tag : ${tags}"
+                           th:href="@{/tags/{id} (id = ${tag.id})}"
+                           class="ui teal small tag label m-margin-tb-tiny">
                             <span th:text="${tag.name}"></span>
                             <!-- articel number with this tag -->
                             <div class="detail" th:text="${tag.blogs.size}"></div>

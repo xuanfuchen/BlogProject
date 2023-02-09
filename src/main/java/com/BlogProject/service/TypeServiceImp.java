@@ -2,6 +2,7 @@ package com.BlogProject.service;
 
 import com.BlogProject.dao.TypeRepository;
 import com.BlogProject.exception.NotFoundException;
+import com.BlogProject.po.Blog;
 import com.BlogProject.po.Type;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +21,9 @@ public class TypeServiceImp implements TypeService{
 
     @Autowired
     private TypeRepository typeRepository;
+
+    @Autowired
+    private BlogService blogService;
 
     @Transactional
     @Override
@@ -67,13 +72,45 @@ public class TypeServiceImp implements TypeService{
 
     @Override
     public List<Type> listAllType() {
-        return typeRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
+        List<Type> listType = new ArrayList<>();
+        for (Type type : typeRepository.findSortedType(sort)) {
+            List<Blog> tempBlogs = new ArrayList<>();
+            for(Blog blog : type.getBlogs()) {
+                if(blog.isPublished()){
+                    tempBlogs.add(blog);
+                }
+            }
+            type.setBlogs(tempBlogs);
+            listType.add(type);
+        }
+        return findPublishedBlogs(listType);
     }
 
     @Override
     public List<Type> topTypeList(Integer size){
         Sort sort = Sort.by(Sort.Direction.DESC, "blogs.size");
         Pageable pageable = PageRequest.of(0,size,sort);
-        return typeRepository.findTop(pageable);
+        return findPublishedBlogs(typeRepository.findTop(pageable));
+    }
+
+    /**
+     * delete all unpublished blogs in type.blog for each type in types
+     * @param types
+     * @return types with no draft blog in its blogs list
+     */
+    private List<Type> findPublishedBlogs(List<Type> types){
+        List<Type> listType = new ArrayList<>();
+        for (Type type : types) {
+            List<Blog> tempBlogs = new ArrayList<>();
+            for(Blog blog : type.getBlogs()) {
+                if(blog.isPublished()){
+                    tempBlogs.add(blog);
+                }
+            }
+            type.setBlogs(tempBlogs);
+            listType.add(type);
+        }
+        return listType;
     }
 }

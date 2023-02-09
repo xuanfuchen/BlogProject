@@ -6,9 +6,9 @@
         <div class="ui inverted secondary stackable menu">
             <a th:href="@{/}"><h2 class="ui teal header item">XC Blog</h2></a>
             <a th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="small home icon"></i>Home</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="small idea icon"></i>Types</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="small tags icon"></i>Tags</a>
-            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="small clone icon"></i>Archive</a>
+            <a th:href="@{/types/{id} (id = -1)}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="small idea icon"></i>Types</a>
+            <a th:href="@{/tags/{id} (id = -1)}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="small tags icon"></i>Tags</a>
+            <a th:href="@{/archive}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="small clone icon"></i>Archive</a>
             <a th:href="@{/about-me}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="small info icon"></i>About me</a>
             <div class="right m-item item m-mobile-hide">
                 <form method="GET" name="search" th:action="@{/search}" target="_blank">
