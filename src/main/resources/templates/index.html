@@ -79,15 +79,15 @@
                 <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
                     <div class="ui middle aligned two column grid">
                         <div class="column">
-                            <a th:href="@{/admin/tagManage (page=${page.number} - 1)}"
+                            <a th:href="@{/ (page=${page.number} - 1)}"
                                th:unless="${page.first}"
-                               class="ui mini teal basic button">Prev Page</a>
+                               class="ui mini secondary basic button">Prev Page</a>
                         </div>
 
                         <div class="right aligned column">
-                            <a th:href="@{/admin/tagManage (page=${page.number} + 1)}"
+                            <a th:href="@{/ (page=${page.number} + 1)}"
                                th:unless="${page.last}"
-                               class="ui mini teal basic button">Next Page</a>
+                               class="ui mini secondary basic button">Next Page</a>
                         </div>
                     </div>
                 </div>

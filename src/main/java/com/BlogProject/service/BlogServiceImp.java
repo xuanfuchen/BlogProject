@@ -48,9 +48,12 @@ public class BlogServiceImp implements BlogService{
      * @return Blog with HTML content
      */
 
+    @Transactional
     @Override
     public Blog getBlogHTML(Long id) {
         Blog blog = blogRepository.getReferenceById(id);
+        //view++ each time the blog is refreshed
+        blogRepository.updateView(id);
         if(blog == null){
             throw new NotFoundException("Blog does not exist");
         }
