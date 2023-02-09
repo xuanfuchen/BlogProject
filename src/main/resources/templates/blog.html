@@ -86,6 +86,8 @@
               </a>
               <div class="content">
                 <a class="author" th:text="${comment.nickname}">Nickname</a>
+                <!--     Admin label      -->
+                <div class="ui mini basic red left pointing label m-padded-small" th:if="${comment.isAdmin}">Admin</div>
                 <div class="metadata">
                   <span class="date" th:text="${#dates.format(comment.createTime, 'yyyy-MM-dd HH:mm')}">Post Time</span>
                 </div>
@@ -102,7 +104,10 @@
                   </a>
                   <div class="content">
                     <a class="author">
-                      <span th:text="${reply.nickname}">Replier</span>&nbsp;<span th:text="|@${reply.parentComment.nickname}|" class="m-teal">Repliee</span>
+                      <span th:text="${reply.nickname}">Replier</span>
+                      <!--     Admin label      -->
+                      <span class="ui mini basic red left pointing label m-padded-small" th:if="${reply.isAdmin}">Admin</span>
+                      &nbsp;<span th:text="|@${reply.parentComment.nickname}|" class="m-teal">Repliee</span>
                     </a>
                     <div class="metadata">
                       <span class="date" th:text="${#dates.format(reply.createTime, 'yyyy-MM-dd HH:mm')}">Post Time</span>
@@ -131,13 +136,13 @@
           <div class="field m-mobile-wide m-margin-bottom-small">
             <div class="ui left icon input">
               <i class="user icon"></i>
-              <input type="text" name="nickname" placeholder="Name">
+              <input type="text" name="nickname" placeholder="Name" th:value="${session.user} != null ? ${session.user.nickname}">
             </div>
           </div>
           <div class="field m-mobile-wide m-margin-bottom-small">
             <div class="ui left icon input">
               <i class="mail icon"></i>
-              <input type="text" name="email" placeholder="Email">
+              <input type="text" name="email" placeholder="Email" th:value="${session.user} != null ? ${session.user.email}">
             </div>
           </div>
           <div class="field  m-margin-bottom-small m-mobile-wide">
@@ -194,6 +199,7 @@
           $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"");
         });
 
+        //This function will check the validation of comment form and submit it
         $('#commentpost-btn').click(function () {
           var valid = $('.ui.form').form('validate form');
           if(valid){

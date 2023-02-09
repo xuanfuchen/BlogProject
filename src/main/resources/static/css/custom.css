@@ -3,6 +3,10 @@ body{
 }
 
 /* ------ padding ------ */
+.m-padded-mini{
+    padding: 0.2em !important;
+}
+
 .m-padded-small{
     padding: 0.4em !important;
 }

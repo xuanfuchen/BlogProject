@@ -33,6 +33,8 @@ public class Comment {
     @ManyToOne
     private Comment parentComment;
 
+    private boolean isAdmin;
+
     public Comment() {
     }
 
@@ -109,6 +111,14 @@ public class Comment {
         this.parentComment = parentComment;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -118,6 +128,10 @@ public class Comment {
                 ", content='" + content + '\'' +
                 ", avatar='" + avatar + '\'' +
                 ", createTime=" + createTime +
+                ", blog=" + blog +
+                ", replyComments=" + replyComments +
+                ", parentComment=" + parentComment +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }

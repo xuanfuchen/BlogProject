@@ -39,7 +39,7 @@
                                 <!-- Article Title -->
                                 <h3 class="ui header" ><a th:href="@{/blog/{id} (id=${blog.id})}" class="blackLink" th:text="${blog.title}">Article Title Here</a></h3>
                                 <!-- Article abstract -->
-                                <p th:text="|${blog.blogAbstract}... ...|">blog abstract</p>
+                                <p th:text="|${blog.blogAbstract} ...|">blog abstract</p>
                                 <div class="ui grid">
                                     <div class="eleven wide column">
                                         <div class="ui horizontal link list">

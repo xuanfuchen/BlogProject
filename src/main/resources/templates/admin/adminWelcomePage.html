@@ -18,6 +18,7 @@
     <div class="ui success large message">
       <h2>Hi,</h2>
       <b>Welcome back, Xuanfu!</b>
+      <p id="show"></p>
     </div>
   </div>
 </div>
@@ -34,6 +35,23 @@
           $('.m-item').toggleClass('m-mobile-hide');
         });
         $('.ui.dropdown').dropdown();
-    </script>
+</script>
+
+<script>
+  var t=3;//设定跳转的时间
+  refer();
+  setInterval("refer()",1000); //启动1秒定时
+  function refer(){
+    if(t<=0){
+      location="[[@{/admin/blogManage}]]"; //#设定跳转的链接地址
+    }
+    document.getElementById('show').innerHTML="Redirect to Blog Manage in "+t+" Seconds"; // 显示倒计时
+
+    if(t>0){
+      t--; // 计数器递减
+    }
+  }
+</script>
+
 </body>
 </html>

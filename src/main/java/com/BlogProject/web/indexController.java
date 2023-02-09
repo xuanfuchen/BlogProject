@@ -53,4 +53,9 @@ public class indexController {
         model.addAttribute("blog", blogService.getBlogHTML(id));
         return "/blog";
     }
+
+    @GetMapping("/about-me")
+    public String aboutMe(){
+        return "/about-me";
+    }
 }

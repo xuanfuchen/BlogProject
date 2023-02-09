@@ -61,10 +61,10 @@ public class MarkdownUtils {
     static class CustomAttributeProvider implements AttributeProvider {
         @Override
         public void setAttributes(Node node, String tagName, Map<String, String> attributes) {
-            //change target attribute to "_blank"
-            if (node instanceof Link) {
-                attributes.put("target", "_blank");
-            }
+//            //change target attribute to "_blank"
+//            if (node instanceof Link) {
+//                attributes.put("target", "_blank");
+//            }
             if (node instanceof TableBlock) {
                 attributes.put("class", "ui celled table");
             }

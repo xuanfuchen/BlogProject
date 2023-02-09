@@ -10,7 +10,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws Exception {
-        //if user did not login, redirect to the login page
+        //if user did not log in, redirect to the login page
         if(request.getSession().getAttribute("user") == null){
             response.sendRedirect("/admin");
             return false;

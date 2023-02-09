@@ -13,15 +13,6 @@
 <div th:replace="fragments/admin-nav-bar :: admin-nav(1)"></div>
 
 <body>
-<!-- secondary nav bar -->
-<div class="ui attached pointing teal menu">
-  <div class="ui container">
-    <div class="right menu">
-      <a href="" class="active item">Blog Posting</a>
-      <a th:href="@{/admin/blogManage}" class="item">Blog List</a>
-    </div>
-  </div>
-</div>
 <!------ Content ------>
 <div class="m-padded-tb-large">
   <div class="ui container">
@@ -118,8 +109,7 @@
       <!-- post buttons -->
       <div class="ui right aligned container">
         <button type="button" class="ui button" onclick="window.history.go(-1)">Back</button>
-        <button type="button" id="save-btn" class="ui secondary button"
-                th:text="*{id}==null ? 'Save Draft' : 'Edit Draft'">Save</button>
+        <button type="button" id="save-btn" class="ui secondary button">Save As Draft</button>
         <button type="button" id="publish-btn" class="ui teal button"
                 th:action="*{id}==null ? @{/admin/blogManage} : @{/admin/blogManage/{id} (id = *{id})}">Post</button>
       </div>
@@ -222,8 +212,5 @@
         });
     </script>
 </body>
-
-<!--import footer fragment-->
-<div th:replace="fragments/footer :: footer"></div>
 
 </html>
