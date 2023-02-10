@@ -1,6 +1,6 @@
 # BlogProject
 ### Demo deployed at AWS:
-http://3.19.135.183/
+http://xuanfublog.com/
 
 ------------
 
