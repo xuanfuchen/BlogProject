@@ -42,7 +42,7 @@ public class BlogController {
         //we need all types and a page of blogs for one blogManage page
         model.addAttribute("types", typeService.listAllType());
         model.addAttribute("page", blogService.listBlog(pageable));
-        return "/admin/blogManage";
+        return "admin/blogManage";
     }
 
     @PostMapping("/blogManage/search")
@@ -50,14 +50,14 @@ public class BlogController {
                              @PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC)
                              Pageable pageable){
         model.addAttribute("page", blogService.listBlog(pageable, blog));
-        return "/admin/blogManage :: blogList";
+        return "admin/blogManage :: blogList";
     }
 
     @GetMapping("blogManage/blogInput")
     public String input(Model model){
         setTypeAndTag(model);
         model.addAttribute("blog", new Blog());
-        return "/admin/blogInput";
+        return "admin/blogInput";
     }
 
     private void setTypeAndTag(Model model){
@@ -95,6 +95,6 @@ public class BlogController {
         setTypeAndTag(model);
         //form a string of tags' id for front end pull down menu's use
         model.addAttribute("blog", blogService.getBlog(id));
-        return "/admin/blogInput";
+        return "admin/blogInput";
     }
 }

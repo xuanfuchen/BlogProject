@@ -29,13 +29,13 @@ public class TypeController {
     public String typeManage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model){
         model.addAttribute("page", typeService.listType(pageable));
-        return "/admin/typeManage";
+        return "admin/typeManage";
     }
 
     @GetMapping("/typeManage/addType")
     public String add(Model model){
         model.addAttribute("type", new Type());
-        return "/admin/typeInput";
+        return "admin/typeInput";
     }
 
     //use POST method to save types and avoid the collision under URL "/typeManage"
@@ -46,7 +46,7 @@ public class TypeController {
             result.rejectValue("name", "nameError", "Cannot have duplicate type name");
         }
         if (result.hasErrors()){
-            return "/admin/typeInput";
+            return "admin/typeInput";
         }
         Type t = typeService.saveType(type);
         if (t == null) {
@@ -69,7 +69,7 @@ public class TypeController {
             result.rejectValue("name", "nameError", "Cannot have duplicate type name");
         }
         if (result.hasErrors()){
-            return "/admin/typeInput";
+            return "admin/typeInput";
         }
         Type t = typeService.updateType(id, type);
         if (t == null) {

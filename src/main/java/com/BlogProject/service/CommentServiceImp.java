@@ -94,7 +94,6 @@ public class CommentServiceImp implements CommentService{
         //add current comment to the tempReplies if it's not null
         tempDescendants.add(comment);
 
-
         //if there is descendant comments under current comment
         if (comment.getReplyComments().size()>0) {
             //get all replies under current comment

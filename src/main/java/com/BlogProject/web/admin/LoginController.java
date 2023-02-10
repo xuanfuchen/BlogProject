@@ -34,6 +34,7 @@ public class LoginController {
         //if UserRepository found a user by username AND password, it means the username and password is correct
         if(user != null){
             user.setPassword(null);
+            user.setAvatar(userService.getUser(username).getAvatar());
             session.setAttribute("user", user);
             return "admin/adminWelcomePage";
         }else{ //if username or password are wrong, pop an error message

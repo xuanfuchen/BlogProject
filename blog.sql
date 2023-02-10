@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50738
 File Encoding         : 65001
 
-Date: 2023-02-10 04:27:19
+Date: 2023-02-10 07:46:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -179,4 +179,5 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('0', 'https://icon-library.com/icon/avatar-icon-images-4.html.html', '2023-01-30 01:34:32.000000', 'sean.xfc@gmail.com', 'Xuanfu', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '2023-01-30 01:35:24.000000', 'Xuanfu');
+INSERT INTO `t_user` VALUES ('0', 'https://ionicframework.com/docs/img/demos/avatar.svg', '2023-01-30 01:34:32.000000', 'xfc@gmail.com', 'Xuanfu', 'E10ADC3949BA59ABBE56E057F20F883E', '1', '2023-01-30 01:35:24.000000', 'Xuanfu');
+INSERT INTO `t_user` VALUES ('1', 'https://ionicframework.com/docs/img/demos/avatar.svg', '2023-02-10 04:39:37.000000', 'admin@gmail.com', 'Admin', '4E17813DC43E9A18E7E2DDA0F76E5BAF', '1', '2023-02-10 04:40:43.000000', 'Admin');

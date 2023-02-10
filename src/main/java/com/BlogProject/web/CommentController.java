@@ -37,7 +37,7 @@ public class CommentController {
         if(user == null){
             comment.setAvatar("/images/viewer-avatar.png");
         } else { //else set admin avatar
-            comment.setAvatar("/images/admin-avatar.png");
+            comment.setAvatar(user.getAvatar());
             comment.setAdmin(true);
             comment.setNickname(user.getNickname());
         }

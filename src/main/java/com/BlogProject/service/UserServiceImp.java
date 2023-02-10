@@ -17,4 +17,9 @@ public class UserServiceImp implements UserService {
         User user = userRepository.findByUsernameAndPassword(username, MD5Utils.MD5Upper(password));
         return user;
     }
+
+    @Override
+    public User getUser(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

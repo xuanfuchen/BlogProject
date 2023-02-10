@@ -30,13 +30,13 @@ public class indexController {
     private TagService tagService;
 
     @GetMapping("/")
-    public String index(@PageableDefault(size = 10, sort = {"updateTime"}, direction = Sort.Direction.DESC)Pageable pageable,
+    public String index(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC)Pageable pageable,
                         Model model){
         model.addAttribute("page", blogService.publishedBlogs(pageable));
         model.addAttribute("types", typeService.topTypeList(TOP_TYPE_LIST_SIZE));
         model.addAttribute("tags", tagService.topTagList(TOP_TAG_LIST_SIZE));
         model.addAttribute("recommendBlogs", blogService.recommendBlogs(RECOMMEND_BLOG_LIST_SIZE));
-        return "/index";
+        return "index";
     }
 
     @GetMapping("/search")
@@ -45,17 +45,17 @@ public class indexController {
                          Model model){
         model.addAttribute("page", blogService.listBlog("%"+query+"%", pageable));
         model.addAttribute("searchInfo", query);
-        return "/search";
+        return "search";
     }
 
     @GetMapping("/blog/{id}")
     public String blog(@PathVariable Long id, Model model){
         model.addAttribute("blog", blogService.getBlogHTML(id));
-        return "/blog";
+        return "blog";
     }
 
     @GetMapping("/about-me")
     public String aboutMe(){
-        return "/about-me";
+        return "about-me";
     }
 }

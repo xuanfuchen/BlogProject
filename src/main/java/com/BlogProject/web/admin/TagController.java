@@ -26,13 +26,13 @@ public class TagController {
     public String tagManage(@PageableDefault(size = 10, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable,
                              Model model){
         model.addAttribute("page", tagService.listTag(pageable));
-        return "/admin/tagManage";
+        return "admin/tagManage";
     }
 
     @GetMapping("/tagManage/addTag")
     public String add(Model model){
         model.addAttribute("tag", new Tag());
-        return "/admin/tagInput";
+        return "admin/tagInput";
     }
 
     @PostMapping("/tagManage")
@@ -41,7 +41,7 @@ public class TagController {
             result.rejectValue("name", "nameError", "Cannot have duplicate tag name");
         }
         if (result.hasErrors()){
-            return "/admin/tagInput";
+            return "admin/tagInput";
         }
         Tag t = tagService.saveTag(tag);
         if (t == null) {
@@ -55,7 +55,7 @@ public class TagController {
     @GetMapping("/tagManage/{id}/edit")
     public String edit(@PathVariable Long id, Model model){
         model.addAttribute("tag", tagService.getTagById(id));
-        return "/admin/tagInput";
+        return "admin/tagInput";
     }
 
     @PostMapping("/tagManage/{id}")
@@ -64,7 +64,7 @@ public class TagController {
             result.rejectValue("name", "nameError", "Cannot have duplicate tag name");
         }
         if (result.hasErrors()){
-            return "/admin/tagInput";
+            return "admin/tagInput";
         }
         Tag t = tagService.updateTag(id, tag);
         if (t == null) {
