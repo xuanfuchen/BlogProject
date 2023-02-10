@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XC Blog - Blog Title</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-  <link rel="stylesheet" th:href="@{/lib/prism/prism.css}">
+  <link rel="stylesheet" th:href="@{/lib/typo/typo.css}">
   <link rel="stylesheet" th:href="@{/css/custom.css}">
+  <link rel="stylesheet" th:href="@{/lib/prism/prism.css}">
 </head>
 
 <!--import navigation bar fragment-->
 <div th:replace="fragments/guest-nav-bar :: guest-nav(10)"></div>
 
-<body>
+<body class="line-numbers language-markup">
 <!------ Content ------>
 <div class="m-padded-tb-large m-container-narrow">
   <div class="ui container">
@@ -46,7 +47,7 @@
       <!-- article title -->
       <h1 class="ui header center aligned" th:text="${blog.title}">Title</h1>
       <!-- article content -->
-      <div id="content" th:utext="${blog.content}" class="m-padded-lr m-padded-tb-small">Content</div>
+      <div id="content" th:utext="${blog.content}" class="typo typo-selection m-padded-lr m-padded-tb-small">Content</div>
       <!-- tags -->
       <div class="m-padded-lr-small m-padded-tb-medium">
         <div class="ui small teal tag label" th:each="tag : ${blog.tags}" th:text="${tag.name}">Tag</div>
@@ -159,10 +160,10 @@
 <br>
 <br>
 
+<script th:src="@{/lib/prism/prism.js}"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<scrip src="@{/lib/prism/prism.js}"></scrip>
-
 
 <script th:inline="javascript">
         <!-- menu bottom click monitor in mobile devices -->

@@ -18,7 +18,7 @@ public class indexController {
 
     private final Integer TOP_TYPE_LIST_SIZE = 6;
     private final Integer TOP_TAG_LIST_SIZE = 10;
-    private final Integer RECOMMEND_BLOG_LIST_SIZE = 8;
+    private final Integer RECOMMEND_BLOG_LIST_SIZE = 10;
 
     @Autowired
     private BlogService blogService;

@@ -104,7 +104,7 @@
                                 <i class="idea icon"></i>Article Types
                             </div>
                             <div class="right aligned column">
-                                <a href="">more <i class="angle double right icon"></i></a>
+                                <a th:href="@{types/-1}">more <i class="angle double right icon"></i></a>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                         <!-- types list -->
                         <div class="ui fluid vertical menu">
                             <!-- article type -->
-                            <a href="" class="item" th:each="type : ${types}">
+                            <a th:href="@{tags/-1}" class="item" th:each="type : ${types}">
                                 <span th:text="${type.name}"></span>
                                 <!-- article count in this type -->
                                 <div class="ui teal basic label" th:text="${type.blogs.size}"></div>
