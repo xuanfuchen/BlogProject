@@ -13,7 +13,7 @@
                 <div class="ui dropdown item">
                     <div class="text">
                         <img src="https://ionicframework.com/docs/img/demos/avatar.svg" class="ui avatar image">
-                        Xuanfu Chen
+                        <span th:text="${session.user} != null ? ${session.user.nickname}"></span>
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
