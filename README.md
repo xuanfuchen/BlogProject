@@ -34,7 +34,7 @@ Clone and use Maven to build the project, then you can run it locally.
 For admin management pages, attach "/admin" at the end of URL to log in.
 
 #### Password
-**Please keep in mind that the password stored in the MySQL database is an MD5 value. Please use the MD5Util class (included in the project) to get a MD5 value for your password and store that MD5 value in the database.**
+**Please keep in mind that the password stored in the MySQL database is an MD5 value. Please use the MD5Util class (included in `src/main/java/com/BlogProject/util`) to get a MD5 value for your password and store that MD5 value in the database.**
 
 #### Admin comment
-Comment as admin while logging in on the other tab.
+To comment as admin, you need to comment while logging in on the other tab.
