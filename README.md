@@ -1,6 +1,6 @@
 # BlogProject
 ### Demo deployed at AWS:
-http://3.19.135.183/
+http://18.119.7.149/
 
 ------------
 
@@ -31,7 +31,7 @@ Clone and use Maven to build the project, then you can run it locally.
 ------------
 
 ### Admin and Log in
-For admin management pages, attach "/admin" at the end to log in.
+For admin management pages, attach "/admin" at the end of URL to log in.
 
 #### Password
 **Please keep in mind that the password stored in the MySQL database is an MD5 value. Please use the MD5Util class (included in the project) to get a MD5 value for your password and store that MD5 value in the database.**

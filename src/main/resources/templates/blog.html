@@ -57,7 +57,7 @@
     <!-- blog info -->
     <div class="ui attached positive message">
       <ui class="list">
-        <li>Author: <span th:text="${blog.user.nickname}"></span><a th:href="@{/about}"> (About Me) </a></li>
+        <li>Author: <span th:text="${blog.user.nickname}"></span></li>
         <li>Post at: <span th:text="${#dates.format(blog.createTime, 'yyyy-MM-dd HH:mm')}"></span></li>
         <li>Last Update: <span th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm')}"></span></li>
         <li th:if="${blog.shareStatement}"><a href="https://creativecommons.org/licenses/by-nc-nd/3.0/" target="_blank">Copyright: Attribution-NonCommercial-NoDerivs 3.0 Unported (CC BY-NC-ND 3.0)</a></li>
