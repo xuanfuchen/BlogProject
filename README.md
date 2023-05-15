@@ -25,7 +25,8 @@ http://18.119.7.149/
 ------------
 
 
-### Build by Maven
+### Quick start
+This project is build by Maven
 Clone and use Maven to build the project, then you can run it locally.
 
 ------------
