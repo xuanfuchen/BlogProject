@@ -28,7 +28,7 @@ http://xuanfublog.com/
 
 
 ### Quick start
-This project is build by Maven
+This project is build by Maven.  
 Clone and use Maven to build the project, then you can run it locally.
 
 ------------
